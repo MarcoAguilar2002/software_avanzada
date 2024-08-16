@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Paciente;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PacienteController extends Controller
 {
@@ -12,8 +15,7 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        //
-        $pacientes = Paciente::all();
+        $pacientes = Paciente::with('user')->get();
         return view('admin.pacientes.index',compact('pacientes'));
     }
 
@@ -32,51 +34,67 @@ class PacienteController extends Controller
     public function store(Request $request)
     {
         //
+    
         $request->validate([
             'nombres' => 'required',
             'apellidos' => 'required',
-            'dni' => 'required|unique:pacientes',
+            'dni' => 'required|unique:profiles',
             'celular' => 'required',
-            'genero' => 'required',
             'fecha_nacimiento' => 'required',
             'direccion' => 'required',
-            'correo' => 'required|unique:pacientes',
-            'grupo_sanguineo' => 'required',
+            'region' => 'required',
+            'provincia' => 'required',
+            'distrito' => 'required',
             'nro_seguro' => 'required|unique:pacientes',
-            'observaciones' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required|confirmed',
+            
         ]);
+        
+        $usuario = new User();
+        $usuario->name = $request->nombres." ".$request->apellidos;
+        $usuario->email = $request->email;
+        $usuario->password = Hash::make($request->password);
+        $usuario->save();
 
         $paciente = new Paciente();
-        $paciente->nombres = $request->nombres;
-        $paciente->apellidos = $request->apellidos;
-        $paciente->dni = $request->dni;
-        $paciente->celular = $request->celular;
-        $paciente->genero = $request->genero;
-        $paciente->fecha_nacimiento = $request->fecha_nacimiento;
-        $paciente->direccion = $request->direccion;
-        $paciente->correo = $request->correo;
-        $paciente->grupo_sanguineo = $request->grupo_sanguineo;
+        $paciente->user_id = $usuario->id;
         $paciente->nro_seguro = $request->nro_seguro;
-        $paciente->observaciones = $request->observaciones;
+        $paciente->grupo_sanguineo = $request->grupo_sanguineo;
+        $paciente->alergias = $request->alergias;
+        $paciente->vacunas_recibidas = $request->vacunas_recibidas;
         $paciente->save();
 
-        
+
+        $profile = new Profile();
+        $profile->user_id = $usuario->id;
+        $profile->nombres = $request->nombres;
+        $profile->apellidos = $request->apellidos;
+        $profile->dni = $request->dni;
+        $profile->celular = $request->celular;
+        $profile->fecha_nacimiento = $request->fecha_nacimiento;
+        $profile->genero = $request->genero;
+        $profile->estado_civil = $request->estado_civil;
+        $profile->direccion = $request->direccion;
+        $profile->region = $request->region;
+        $profile->provincia = $request->provincia;
+        $profile->distrito = $request->distrito;
+        $profile->save();
+
+        $usuario->assignRole('paciente');
 
         return redirect()->route('admin.pacientes.index')
-        ->with('mensaje','Se registro al paciente correctamente')
+        ->with('mensaje','Se registró al paciente correctamente')
         ->with('icono','success')
-        ->with('titulo','Registro Exitoso');
+        ->with('titulo','Registro Exitoso'); 
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
+    public function show($id){
         //
-        $paciente = Paciente::findOrFail($id);
-        return view('admin.pacientes.show',compact('paciente'));
+        $paciente = paciente::with('user')->findOrFail($id);
+        $profile = $paciente->user->profile;
+        return view('admin.pacientes.show',compact('paciente','profile'));
     }
 
     /**
@@ -85,45 +103,80 @@ class PacienteController extends Controller
     public function edit($id)
     {
         //
-        $paciente = Paciente::findOrFail($id);
-        return view('admin.pacientes.edit',compact('paciente'));
+        $paciente = Paciente::with('user')->findOrFail($id);
+        $profile = $paciente->user->profile;
+        return view('admin.pacientes.edit',compact('paciente','profile'));
     }
 
     public function update(Request $request, $id){
         //
-        $paciente = Paciente::findOrFail($id);
+        $paciente = Paciente::with('user')->findOrFail($id);
+        $profile = $paciente->user->profile;
         $request->validate([
             'nombres' => 'required',
             'apellidos' => 'required',
-            'dni' => 'required|unique:pacientes,dni,'.$paciente->id,
+            'dni' => 'required|unique:profiles,dni,'.$profile->id,
             'celular' => 'required',
-            'genero' => 'required',
             'fecha_nacimiento' => 'required',
             'direccion' => 'required',
-            'correo' => 'required|unique:pacientes,correo,'.$paciente->id,
-            'grupo_sanguineo' => 'required',
-            'nro_seguro' => 'required|unique:pacientes,nro_seguro,'.$paciente->id,
-            'observaciones' => 'required',
+            'region' => 'required',
+            'provincia' => 'required',
+            'distrito' => 'required',
+            'nro_seguro' => 'required|unique:pacientes,nro_seguro,'.$paciente->id
         ]);
 
-        $paciente->nombres = $request->nombres;
-        $paciente->apellidos = $request->apellidos;
-        $paciente->dni = $request->dni;
-        $paciente->celular = $request->celular;
-        $paciente->genero = $request->genero;
-        $paciente->fecha_nacimiento = $request->fecha_nacimiento;
-        $paciente->direccion = $request->direccion;
-        $paciente->correo = $request->correo;
+        $user = $paciente->user;
+        $user->name = $request->nombres." ".$request->apellidos;
+        $user->save();
+
+        $paciente->nro_seguro  = $request->nro_seguro ;
         $paciente->grupo_sanguineo = $request->grupo_sanguineo;
-        $paciente->nro_seguro = $request->nro_seguro;
-        $paciente->observaciones = $request->observaciones;
+        $paciente->alergias = $request->alergias;
+        $paciente->vacunas_recibidas = $request->vacunas_recibidas;
         $paciente->save();
+
+        $profile->nombres = $request->nombres;
+        $profile->apellidos = $request->apellidos;
+        $profile->dni = $request->dni;
+        $profile->celular = $request->celular;
+        $profile->fecha_nacimiento = $request->fecha_nacimiento;
+        $profile->genero = $request->genero;
+        $profile->estado_civil = $request->estado_civil;
+        $profile->direccion = $request->direccion;
+        $profile->region = $request->region;
+        $profile->provincia = $request->provincia;
+        $profile->distrito = $request->distrito;
+        $profile->save();
+
         return redirect()->route('admin.pacientes.index')
         ->with('mensaje','Se actualizó al paciente correctamente')
         ->with('icono','success')
-        ->with('titulo','Edición Exitosa');
+        ->with('titulo','Edición Exitosa'); 
     }
 
+    public function updateUsuario(Request $request, $id){
+        //
+
+        $paciente = Paciente::with('user')->findOrFail($id);
+        $request -> validate([
+            'email' => 'required|unique:users,email,'.$paciente->user->id,
+            'password' => 'confirmed'
+            
+        ]);
+        
+        $usuario = User::find($paciente->user->id);
+        $usuario->email = $request->email;
+        if($request ->filled('password')){
+            $usuario->password = Hash::make($request->password);
+        }
+        $usuario->save();
+
+        return redirect()->route('admin.pacientes.index')
+        ->with('mensaje','Se acutalizó al paciente correctamente')
+        ->with('icono','success')
+        ->with('titulo','Edición Exitosa');
+    }
+    
     /**
      * Remove the specified resource from storage.
      */

@@ -4,33 +4,15 @@
 @section('title', 'Ver reservas')
 
 @section('content')
-<style>
-    .estado-curso {
-        color: blue;
-    }
-    .estado-cancelada {
-        color: red;
-    }
-    .estado-finalizada {
-        color: green;
-    }
-    .estado-punto {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        margin-right: 5px;
-    }
-    .estado-curso .estado-punto {
-        background-color: blue;
-    }
-    .estado-cancelada .estado-punto {
-        background-color: red;
-    }
-    .estado-finalizada .estado-punto {
-        background-color: green;
-    }
-</style>
+    <style>
+        .btn-estado {
+            font-size: 12px;
+            /* Ajusta el tamaño de la fuente */
+            padding: 2px 8px;
+            /* Ajusta el padding para reducir el tamaño del botón */
+            cursor: none;
+        }
+    </style>
     <hr>
 
     <div class="container">
@@ -43,62 +25,79 @@
                     <th scope="col">Fecha de reserva</th>
                     <th scope="col">Hora de Reserva </th>
                     <th scope="col">Estado</th>
+                    <th scope="col">Pago</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody class="text-center">
+
                 <?php $contador = 1; ?>
                 @foreach ($eventos as $evento)
-                    <tr>
-                        <td>{{ $contador++ }}</td>
-                        <td>{{ $evento->doctor->nombres . ' ' . $evento->doctor->apellidos }}</td>
-                        <td>{{ $evento->doctor->especialidad.'-'.$evento->consultorio->ubicacion }}</td>
-                        <td>{{ \Carbon\Carbon::parse($evento->start)->format('Y-m-d') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($evento->end)->format('H:i:s') }}</td>
-                        <td class="@if($evento->estado == 'En Curso') estado-curso @elseif($evento->estado == 'Cancelada') estado-cancelada @elseif($evento->estado == 'Finalizada') estado-finalizada @endif">
-                            <span class="estado-punto"></span>{{ $evento->estado }}
-                        </td>
-                        <td>
-                            <div class="btn-group" role="group">
-                                <form action="{{ route('admin.reservas.destroy', $evento->id) }}"
-                                    id="formulario{{ $evento->id }}" 
-                                    onclick="preguntar{{ $evento->id }}(event)"
-                                    method="POST" 
-                                    style="display:inline;">
-                                  @csrf
-                                  @method('DELETE')
-                                  <button type="submit" class="btn btn-danger" 
-                                          style="background-color: red;" 
-                                          @if($evento->estado == 'Cancelada') disabled @endif>
-                                      <i class="bi bi-x-circle"></i>
-                                  </button>
-                              </form>
-                              
+                    @if ($evento->user_id == Auth::user()->id)
+                        <tr>
+                            <td>{{ $contador++ }}</td>
+                            <td>{{ $evento->doctor->user->name }}</td>
+                            <td>{{ $evento->doctor->especialidad . '-' . $evento->consultorio->ubicacion }}</td>
+                            <td>{{ \Carbon\Carbon::parse($evento->start)->format('Y-m-d') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($evento->end)->format('H:i:s') }}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button type="button"
+                                        class="btn btn-estado @if ($evento->estado == 'En Curso') btn-success @elseif($evento->estado == 'Cancelada') btn-danger @elseif($evento->estado == 'Finalizada') btn-success @endif">
+                                        {{ $evento->estado }}
+                                    </button>
+                                </div>
+                            </td>
 
-                                <script>
-                                    function preguntar{{ $evento->id }}(event) {
-                                        event.preventDefault();
-                                        Swal.fire({
-                                            title: "¿Seguro que quieres cancelar tu reserva?",
-                                            text: "De cancelar tu reserva, otro paciente podrá tomar tu turno",
-                                            icon: "question",
-                                            showCancelButton: true,
-                                            confirmButtonColor: "#d33",
-                                            cancelButtonColor: "#3085d6",
-                                            confirmButtonText: "Sí, cancelar"
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                var form = $('#formulario{{$evento->id}}');
-                                                form.submit();
-                                                
-                                            }
-                                        });
-                                    }
-                                </script>
-                            </div>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    @foreach ($pagos as $pago)
+                                        @if ($evento->id == $pago->event_id)
+                                            <button type="button"
+                                                class="btn btn-estado @if ($pago->estado == 'Pagado') btn-success @elseif($pago->estado == 'Pendiente') btn-primary @endif">
+                                                {{ $pago->estado }}
+                                            </button>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </td>
 
-                        </td>
-                    </tr>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <form action="{{ route('admin.reservas.destroy', $evento->id) }}"
+                                        id="formulario{{ $evento->id }}" onclick="preguntar{{ $evento->id }}(event)"
+                                        method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" style="background-color: red;"
+                                            @if ($evento->estado == 'Cancelada' || $evento->estado == 'Finalizada') disabled @endif>
+                                            <i class="bi bi-x-circle"></i>
+                                        </button>
+                                    </form>
+
+                                    <script>
+                                        function preguntar{{ $evento->id }}(event) {
+                                            event.preventDefault();
+                                            Swal.fire({
+                                                title: "¿Seguro que quieres cancelar tu reserva?",
+                                                text: "De cancelar tu reserva, otro paciente podrá tomar tu turno",
+                                                icon: "question",
+                                                showCancelButton: true,
+                                                confirmButtonColor: "#d33",
+                                                cancelButtonColor: "#3085d6",
+                                                confirmButtonText: "Sí, cancelar"
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    var form = $('#formulario{{ $evento->id }}');
+                                                    form.submit();
+                                                }
+                                            });
+                                        }
+                                    </script>
+                                </div>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>

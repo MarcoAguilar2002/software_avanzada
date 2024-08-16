@@ -19,10 +19,19 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void{
-       
         
         $this->call([RoleSeeder::class,]);
+        
+        User::create([
+            'name'=>'admin1',
+            'email'=>'admin1@gmail.com',
+            'password'=>Hash::make('admin1123')
+        ])->assignRole('admin');
+        
 
+        
+
+        /*
         User::create([
             'name'=>'doctor1',
             'email'=>'doctor1@gmail.com',
@@ -34,12 +43,6 @@ class DatabaseSeeder extends Seeder
             'email'=>'secretaria1@gmail.com',
             'password'=>Hash::make('secretaria1123')
         ])->assignRole('secretaria');
-
-        User::create([
-            'name'=>'admin1',
-            'email'=>'admin1@gmail.com',
-            'password'=>Hash::make('admin1123')
-        ])->assignRole('admin');
 
         
         User::create([
@@ -76,7 +79,7 @@ class DatabaseSeeder extends Seeder
             'estado' => 'Activo'
         ]);
 
-        /*$this->call([PacienteSeeder::class,]);
+        $this->call([PacienteSeeder::class,]);
         Creacopm de pacientes
         $this->call([UserSeeder::class,]);
         $this->call([PacienteSeeder::class,]);
@@ -86,6 +89,6 @@ class DatabaseSeeder extends Seeder
         $this->call([EventSeeder::class,]);
         $this->call([HistorialSeeder::class,]);
         $this->call([PagoSeeder::class,]);*/
-
+            
     }
 }

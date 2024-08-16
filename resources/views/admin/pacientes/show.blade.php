@@ -1,129 +1,191 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Crear Paciente')
-
 @section('content')
-    <div class="container">
-        <div class="col-md-10">
-            <div class="card card-outline card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Complete el formulario</h3>
+    <div class="page-wrapper">
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-7 col-6">
+                    <h4 class="page-title">Detalles del Paciente</h4>
                 </div>
+            </div>
 
-                <div class="card-body col-md-12">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form group">
-                                    <label for="">Nombres</label>
-                                    <p>{{$paciente->nombres}}</p>
-                                    
+            <div class="col-md-12">
+                <div class="card card-outline card-primary">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Datos
+                                    Registrados</a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="activity">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>Información Personal</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="nombres">Nombres</label>
+                                            <p>{{ $profile->nombres }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="Apellidos">Apellidos</label>
+                                            <p>{{ $profile->apellidos }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="dni">DNI</label>
+                                            <p>{{ $profile->dni }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="dni">Celular</label>
+                                            <p>{{ $profile->celular }}</p>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                                            <p>{{ $profile->fecha_nacimiento }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="genero">Género</label>
+                                            <p>{{ $profile->genero }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="genero">Estado Civil</label>
+                                            <p>{{ $profile->estado_civil }}</p>
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </div>
 
-                            <div class="col-md-3">
-                                <div class="input-group mb-3">
-                                    <div class="form group">
-                                        <label for="">Apellidos</label>
-                                        <p>{{$paciente->apellidos}}</p>
-                                        
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>Información de Contacto</h5>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="direccion">Dirección:</label>
+                                            <p>{{ $profile->direccion }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="region">Región</label>
+                                            <p>{{ $profile->region }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="provincia">Provincia</label>
+                                            <p>{{ $profile->provincia }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="distrito">Distrito</label>
+                                            <p>{{ $profile->distrito }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>Información Médica</h5>
+                                    </div>
 
-                            <div class="col-md-3">
-                                <div class="form group">
-                                    <label for="">DNI</label>
-                                    <p>{{$paciente->dni}}</p>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="region">N° de Seguro</label>
+                                            <p>{{ $paciente->nro_seguro}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="direccion">Grupo Sanguíneo</label>
+                                            <p>{{ $paciente->grupo_sanguineo }}</p>
+                                        </div>
+                                    </div>
+
                                     
-                                </div>
-                            </div>
 
-                            <div class="col-md-3">
-                                <div class="form group">
-                                    <label for="">Seguro</label>
-                                    <p>{{$paciente->nro_seguro}}</p>
-                                    
-                                </div>
-                            </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="provincia">Alergías</label>
+                                            @if($paciente->alergias)
+                                                <p>{!!$paciente->alergias !!}</p>
 
-                        </div>
+                                            @else
+                                                <p>No tiene alergías</p>
+                                            @endif
+                                        </div>
+                                    </div>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form group">
-                                    <label for="">Fecha de Nacimiento</label>
-                                    <p>{{$paciente->fecha_nacimiento}}</p>
-                                    
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="input-group mb-3">
-                                    <div class="form group">
-                                        <label for="">Género</label>
-                                        <p>{{$paciente->genero}}</p>
-                                        
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="distrito">Vacunas Recibidas</label>
+                                            @if($paciente->vacunas_recibidas)
+                                                <p>{!!$paciente->vacunas_recibidas !!}</p>
+                                            
+                                            @else
+                                                <p>No ha recibido vacunas</p>
+                                            
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-3">
-                                <div class="form group">
-                                    <label for="">Celular</label>
-                                    <p>{{$paciente->celular}}</p>
-                                    
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form group">
-                                    <label for="">Correo</label>
-                                    <p>{{$paciente->correo}}</p>
-                                    
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form group">
-                                    <label for="">Dirección</label>
-                                    <p>{{$paciente->direccion}}</p>
-                                    
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="input-group mb-3">
-                                    <div class="form group">
-                                        <label for="">Grupo sanguineo</label>
-                                        <p>{{$paciente->grupo_sanguineo}}</p>
-                                        
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>Información de la cuenta</h5>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="direccion">Correo:</label>
+                                            <p>{{ $paciente->user->email }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form group">
-                                    <label for="">Observaciones</label>
-                                    <p>{{ $paciente->observaciones }}</p>
-                                    
+                                <div class="row text-center">
+                                    <div class="col-md-12">
+                                        <a href="" class="btn btn-secondary">Volver</a>
+                                       
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
 
-                        <div class="row item-aling-center justify-content">
-                            <a href="{{ route('admin.pacientes.index') }}" class="btn btn-secondary ">Volver</a>
-                        </div>
+                    </div>
                 </div>
-
             </div>
 
         </div>
-    </div>
 
+    </div>
 @endsection

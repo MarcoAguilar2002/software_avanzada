@@ -31,32 +31,19 @@ class EventController extends Controller
      */
     public function store(Request $request){
         //
-        $request->validate([
-            'consultorio_id' => 'required',
-            'doctor_id' => 'required',
-            'color' => 'required',
-            'start' => 'required|date_format:Y-m-d H:i:s',
-            'end' => 'required|date_format:Y-m-d H:i:s|after:start'
-        ]);
+        $consultorio = Consultorio::findOrFail($request->consultorio_id);
+        $evento = new Event;
+        $evento->title = $request->hora." ".$consultorio->especialidad;
+        $evento->start = $request->start;
+        $evento->end = $request->end;
+        $evento->color = $request->color;
+        $evento->user_id = Auth()->user()->id; 
+        $evento->doctor_id = $request->doctor_id;
+        $evento->consultorio_id = $request->consultorio_id;
+        $evento->estado =  "En Curso";
+        $evento->save();
 
-        $consultorio = Consultorio::where('especialidad', $request->consultorio_id)->first();
-
-        $event = new Event;
-        $event->title = $request->turno." ".$request->consultorio_id;
-        $event->start = $request->start;
-        $event->end = $request->end;
-        $event->color = $request->color;
-        $event->user_id = Auth()->user()->id; 
-        $event->doctor_id = $request->doctor_id;
-        $event->consultorio_id =  $consultorio->id;
-        $event->estado =  "En Curso";
-        $event->save();
-
-       
-        return redirect()->route('admin.index')
-        ->with('mensaje','Se registro la cita correctamente')
-        ->with('icono','success')
-        ->with('titulo','Registro Exitoso');
+        return redirect()->route('admin.pagos.metodo',$evento->id);
     }
 
     /**
@@ -86,9 +73,20 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event)
-    {
-        //
-        
+    public function destroy($id){
+        $cita = Event::find($id);
+        if ($cita) {
+            $cita->delete();
+            return redirect()->route('admin.reservas')
+                ->with('mensaje', 'Se canceló la cita correctamente')
+                ->with('icono', 'error')
+                ->with('titulo', 'Eliminación Exitosa');
+        } else {
+            return redirect()->route('admin.reservas')
+                ->with('mensaje', 'No se encontró la cita')
+                ->with('icono', 'error')
+                ->with('titulo', 'Error de eliminación');
+        }
     }
+
 }

@@ -12,21 +12,12 @@
 
                 <div class="card-body col-md-12">
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="form group">
-                                    <label for="">Consultorio</label>
-                                    <p>{{$consultorio->nombre}}</p>
-                                    
-                                </div>
-                            </div>
 
                             <div class="col-md-3">
-                                <div class="input-group mb-3">
-                                    <div class="form group">
-                                        <label for="">Ubicación</label>
-                                        <p>{{$consultorio->ubicacion}}</p>
-                                        
-                                    </div>
+                                <div class="form group">
+                                    <label for="">Especialidad</label>
+                                    <p>{{$consultorio->especialidad}}</p>
+                                    
                                 </div>
                             </div>
 
@@ -50,10 +41,12 @@
 
                         <div class="row">
                             <div class="col-md-3">
-                                <div class="form group">
-                                    <label for="">Especialidad</label>
-                                    <p>{{$consultorio->especialidad}}</p>
-                                    
+                                <div class="input-group mb-3">
+                                    <div class="form group">
+                                        <label for="">Ubicación</label>
+                                        <p>{{$consultorio->ubicacion}}</p>
+                                        
+                                    </div>
                                 </div>
                             </div>
 
@@ -69,8 +62,10 @@
 
                         </div>
 
-                        <div class="row item-aling-center justify-content">
-                            <a href="{{ route('admin.consultorios.index') }}" class="btn btn-secondary ">Volver</a>
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <a href="{{ route('admin.consultorios.index') }}" class="btn btn-secondary ">Volver</a>
+                            </div>
                         </div>
                 </div>
 

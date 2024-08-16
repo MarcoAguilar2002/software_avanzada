@@ -14,6 +14,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\PagoController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', [WebController::class, 'index'])->name('index');
 Auth::routes();
@@ -27,12 +28,13 @@ Route::get('/doctores', [WebController::class, 'getDoctoresPorEspecialidad']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('auth');
-Route::get('/admin/reservas', [AdminController::class, 'ver_reservas'])->name('admin.reservas')->middleware('auth','can:admin.reservas');
+Route::get('/admin/reservas', [AdminController::class, 'ver_reservas'])->name('admin.reservas')->middleware('auth');
 Route::delete('/admin/reservas/destroy/{id}', [AdminController::class, 'destroy'])->name('admin.reservas.destroy')->middleware('auth','can:admin.reservas.destroy');
 
 Route::get('/admin/doctor/citas', [DoctorController::class, 'citas'])->name('admin.doctor.cita')->middleware('auth','can:admin.doctor.cita');
 Route::put('/admin/doctor/citas/{id}', [DoctorController::class, 'editarCita'])->name('admin.doctor.editarCita')->middleware('auth','can:admin.doctor.editarCita');
 
+Route::get('/admin/horarios/{consultorio}/{doctor}/{fecha}', [WebController::class, 'getHorarios']);
 
 //RUTAS ADMIN-USUARIOS
 Route::get('/admin/usuarios', [UsuarioController::class, 'index'])->name('admin.usuarios.index')->middleware('auth','can:admin.usuarios.index');
@@ -42,22 +44,33 @@ Route::get('/admin/usuarios/{id}', [UsuarioController::class, 'show'])->name('ad
 Route::get('/admin/usuarios/{id}/edit', [UsuarioController::class, 'edit'])->name('admin.usuarios.edit')->middleware('auth','can:admin.usuarios.edit');    
 Route::put('/admin/usuarios/{id}', [UsuarioController::class, 'update'])->name('admin.usuarios.update')->middleware('auth','can:admin.usuarios.update');    
 Route::delete('/admin/usuarios/{id}/delete', [UsuarioController::class, 'destroy'])->name('admin.usuarios.destroy')->middleware('auth','can:admin.usuarios.destroy'); 
+
+//RUTAS ADMIN-PERFIL
+Route::get('/admin/perfil', [ProfileController::class, 'index'])->name('admin.perfil.index')->middleware('auth');
+Route::get('/admin/perfil/edit', [ProfileController::class, 'edit'])->name('admin.perfil.edit')->middleware('auth'); 
+Route::put('/admin/perfil', [ProfileController::class, 'update'])->name('admin.perfil.update')->middleware('auth');
+Route::put('/admin/usuarioPerfil', [ProfileController::class, 'updateUsuario'])->name('admin.perfil.updateUsuario')->middleware('auth');  
+
 //RUTAS ADMIN-SECRETARIAS
 Route::get('/admin/secretarias', [SecretariaController::class, 'index'])->name('admin.secretarias.index')->middleware('auth','can:admin.secretarias.index');
 Route::get('/admin/secretarias/create', [SecretariaController::class, 'create'])->name('admin.secretarias.create')->middleware('auth','can:admin.secretarias.create'); 
 Route::post('/admin/secretarias/create', [SecretariaController::class, 'store'])->name('admin.secretarias.store')->middleware('auth','can:admin.secretarias.store'); 
-Route::get('/admin/secretarias/{id}', [SecretariaController::class, 'show'])->name('admin.secretarias.show')->middleware('auth','can:admin.secretarias.show');    
+Route::get('/admin/secretarias/{id}', [SecretariaController::class, 'show'])->name('admin.secretarias.show')->middleware('auth');    
 Route::get('/admin/secretarias/{id}/edit', [SecretariaController::class, 'edit'])->name('admin.secretarias.edit')->middleware('auth','can:admin.secretarias.edit');    
-Route::put('/admin/secretarias/{id}', [SecretariaController::class, 'update'])->name('admin.secretarias.update')->middleware('auth','can:admin.secretarias.update');    
+Route::put('/admin/secretarias/{id}', [SecretariaController::class, 'update'])->name('admin.secretarias.update')->middleware('auth','can:admin.secretarias.update');  
+Route::put('/admin/secretariasPerfil/{id}', [SecretariaController::class, 'updateUsuario'])->name('admin.secretarias.updateUsuario')->middleware('auth','can:admin.secretarias.update');  
 Route::delete('/admin/secretarias/{id}/delete', [SecretariaController::class, 'destroy'])->name('admin.secretarias.destroy')->middleware('auth','can:admin.secretarias.destroy'); 
+
 //RUTAS ADMIN-PACIENTES
 Route::get('/admin/pacientes', [PacienteController::class, 'index'])->name('admin.pacientes.index')->middleware('auth','can:admin.pacientes.index');
 Route::get('/admin/pacientes/create', [PacienteController::class, 'create'])->name('admin.pacientes.create')->middleware('auth','can:admin.pacientes.create'); 
 Route::POST('/admin/pacientes/create', [PacienteController::class, 'store'])->name('admin.pacientes.store')->middleware('auth','can:admin.pacientes.store');
 Route::get('/admin/pacientes/{id}', [PacienteController::class, 'show'])->name('admin.pacientes.show')->middleware('auth','can:admin.pacientes.show');    
 Route::get('/admin/pacientes/{id}/edit', [PacienteController::class, 'edit'])->name('admin.pacientes.edit')->middleware('auth','can:admin.pacientes.edit');    
-Route::put('/admin/pacientes/{id}', [PacienteController::class, 'update'])->name('admin.pacientes.update')->middleware('auth','can:admin.pacientes.update');    
+Route::put('/admin/pacientes/{id}', [PacienteController::class, 'update'])->name('admin.pacientes.update')->middleware('auth'); 
+Route::put('/admin/pacientesPerfil/{id}', [PacienteController::class, 'updateUsuario'])->name('admin.pacientes.updateUsuario')->middleware('auth');     
 Route::delete('/admin/pacientes/{id}/delete', [PacienteController::class, 'destroy'])->name('admin.pacientes.destroy')->middleware('auth','can:admin.pacientes.destroy'); 
+
 //RUTAS ADMIN-CONSULTORIOS
 Route::get('/admin/consultorios', [ConsultorioController::class, 'index'])->name('admin.consultorios.index')->middleware('auth','can:admin.consultorios.index');
 Route::get('/admin/consultorios/create', [ConsultorioController::class, 'create'])->name('admin.consultorios.create')->middleware('auth','can:admin.consultorios.create'); 
@@ -74,12 +87,14 @@ Route::POST('/admin/doctores/create', [DoctorController::class, 'store'])->name(
 Route::get('/admin/doctores/{id}', [DoctorController::class, 'show'])->name('admin.doctores.show')->middleware('auth','can:admin.doctores.show');    
 Route::get('/admin/doctores/{id}/edit', [DoctorController::class, 'edit'])->name('admin.doctores.edit')->middleware('auth','can:admin.doctores.edit');    
 Route::put('/admin/doctores/{id}', [DoctorController::class, 'update'])->name('admin.doctores.update')->middleware('auth','can:admin.doctores.update');    
+Route::put('/admin/doctoresPerfil/{id}', [DoctorController::class, 'updateUsuario'])->name('admin.doctores.updateUsuario')->middleware('auth','can:admin.secretarias.update');  
 Route::delete('/admin/doctores/{id}/delete', [DoctorController::class, 'destroy'])->name('admin.doctores.destroy')->middleware('auth','can:admin.doctores.destroy'); 
 
 //RUTAS ADMIN-Horarios
 Route::get('/admin/horarios', [HorarioController::class, 'index'])->name('admin.horarios.index')->middleware('auth','can:admin.horarios.index');
 Route::get('/admin/horarios/create', [HorarioController::class, 'create'])->name('admin.horarios.create')->middleware('auth','can:admin.horarios.create'); 
 Route::POST('/admin/horarios/create', [HorarioController::class, 'store'])->name('admin.horarios.store')->middleware('auth','can:admin.horarios.store');
+Route::get('/admin/horarios/doctores/{consultorio_id}', [HorarioController::class, 'cargarDoctoresPorConsultorio']);
 Route::get('/admin/horarios/{id}', [HorarioController::class, 'show'])->name('admin.horarios.show')->middleware('auth','can:admin.horarios.show');    
 Route::get('/admin/horarios/{id}/edit', [HorarioController::class, 'edit'])->name('admin.horarios.edit')->middleware('auth','can:admin.horarios.edit');    
 Route::put('/admin/horarios/{id}', [HorarioController::class, 'update'])->name('admin.horarios.update')->middleware('auth','can:admin.horarios.update');    
@@ -101,18 +116,20 @@ Route::delete('/admin/historials/{id}/delete', [HistorialController::class, 'des
 
 
 //Rutas Pagos
-Route::get('/admin/pagos', [PagoController::class, 'index'])->name('admin.pagos.index')->middleware('auth','can:admin.pagos.index');
-Route::get('/admin/pagos/create', [PagoController::class, 'create'])->name('admin.pagos.create')->middleware('auth','can:admin.pagos.create');
-Route::POST('/admin/pagos/create', [PagoController::class, 'store'])->name('admin.pagos.store')->middleware('auth','can:admin.pagos.store');
-Route::get('/admin/pagos/pdf/{id}', [PagoController::class, 'pdf'])->name('admin.pagos.pdf')->middleware('auth','can:admin.pagos.pdf');
-Route::get('/admin/pagos/{id}', [PagoController::class, 'show'])->name('admin.pagos.show')->middleware('auth','can:admin.pagos.show');    
-Route::get('/admin/pagos/{id}/edit', [PagoController::class, 'edit'])->name('admin.pagos.edit')->middleware('auth','can:admin.pagos.edit');
-Route::put('/admin/pagos/{id}', [PagoController::class, 'update'])->name('admin.pagos.update')->middleware('auth','can:admin.pagos.update');
-Route::delete('/admin/pagos/{id}/delete', [PagoController::class, 'destroy'])->name('admin.pagos.destroy')->middleware('auth','can:admin.pagos.destroy');
+Route::get('/admin/pagos/metodo/{id}', [PagoController::class, 'escogerPago'])->name('admin.pagos.metodo')->middleware('auth');
+Route::get('/admin/pagos/metodo/{id}/yape', [PagoController::class, 'yape'])->name('admin.pagos.metodo.yape')->middleware('auth');
+Route::get('/admin/pagos/metodo/{id}/plin', [PagoController::class, 'plin'])->name('admin.pagos.metodo.plin')->middleware('auth');
+Route::get('/admin/pagos/metodo/{id}/bcp', [PagoController::class, 'bcp'])->name('admin.pagos.metodo.bcp')->middleware('auth');
+Route::get('/admin/pagos/metodo/{id}/efectivo', [PagoController::class, 'efectivo'])->name('admin.pagos.metodo.efectivo')->middleware('auth');
+Route::POST('/admin/pagos/create', [PagoController::class, 'store'])->name('admin.pagos.store')->middleware('auth');
+Route::get('/admin/pagos', [PagoController::class, 'index'])->name('admin.pagos.index')->middleware('auth');
+Route::get('/admin/pagos/{id}', [PagoController::class, 'edit'])->name('admin.pagos.edit')->middleware('auth');
+Route::put('/admin/pagos/{id}', [PagoController::class, 'update'])->name('admin.pagos.update')->middleware('auth');
 
 
 //Eventos
-Route::post('/admin/eventos/create',[EventController::class, 'store'])->name('admin.eventos.store')->middleware('auth','can:admin.eventos.store'); 
+Route::post('/admin/eventos/create',[EventController::class, 'store'])->name('admin.eventos.store')->middleware('auth'); 
+Route::delete('/admin/eventos/destroy/{id}', [EventController::class, 'destroy'])->name('admin.eventos.destroy')->middleware('auth');
 
 
 

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('nombres', 100);
             $table->string('apellidos', 100);
             $table->string('dni')->unique();
-            $table->string('celular', 12);
+            $table->string('celular', 12)->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->string('direccion', 100)->nullable();
             $table->string('genero', 20)->nullable();
@@ -30,12 +30,6 @@ return new class extends Migration
             $table->string('provincia')->nullable();
             $table->string('distrito')->nullable();
             $table->string('pais')->default('Perú');
-
-            // Información de emergencia
-            $table->string('contacto_emergencia')->nullable();
-            $table->string('relacion_contacto_emergencia')->nullable();
-            $table->string('telefono_contacto_emergencia')->nullable();
-
                 
             $table->timestamps();
         });

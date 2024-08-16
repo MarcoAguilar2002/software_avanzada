@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pago;
 use App\Models\Paciente;
 use App\Models\Doctor;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class PagoController extends Controller
@@ -15,14 +16,15 @@ class PagoController extends Controller
     public function index()
     {
         //
-        
         $pagos = Pago::all();
         return view('admin.pagos.index',compact('pagos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function escogerPago($id){
+        $evento = Event::find($id);
+        return view('admin.pagos.escogerPago',compact('evento'));
+    }
+
     public function create()
     {
         //
@@ -31,38 +33,51 @@ class PagoController extends Controller
         return view('admin.pagos.create',compact('pacientes','doctors'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
+        
         $request->validate([
-            'monto' => 'required',
-            'fecha_pago' => 'required'
+            'comprobante' => 'required'
         ]);
 
         $pago = new Pago();
+        $pago -> comprobante = $request->comprobante;
         $pago -> monto = $request->monto;
         $pago -> fecha_pago = $request->fecha_pago;
         $pago -> descripcion = $request->descripcion;
-        $pago -> paciente_id = $request->paciente_id;
-        $pago -> doctor_id = $request->doctor_id;
-
+        $pago -> tipo = $request->tipo;
+        $pago -> estado = 'Pendiente';
+        $pago -> event_id = $request->event_id;
         $pago->save();
 
-        return redirect()->route('admin.pagos.index')
-        ->with('mensaje','Se registró el pago correctamente')
+        return redirect()->route('admin.index')
+        ->with('mensaje','Comprobante de pago registrado, esperar su validación')
         ->with('icono','success')
-        ->with('titulo','Registro Exitoso');
+        ->with('titulo','Registro de cita exitosa'); 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        //
+
+    public function yape($id){
+        $evento = Event::find($id);
+        return view('admin.pagos.yape',compact('evento'));
+    }
+
+    public function plin($id){
+        $evento = Event::find($id);
+        return view('admin.pagos.plin',compact('evento'));
+    }
+
+    public function bcp($id){
+        $evento = Event::find($id);
+        return view('admin.pagos.bcp',compact('evento'));
+    }
+
+    public function efectivo($id){
+        
+    }
+
+    public function show($id){
         $pago = Pago::find($id);
         return view('admin.pagos.show',compact('pago'));
     }
@@ -74,34 +89,19 @@ class PagoController extends Controller
     {
         //
         $pago = Pago::find($id);
-        $doctors = Doctor::orderBy('nombres','asc')->get();
-        $pacientes = Paciente::orderBy('nombres','asc')->get();
-        return view('admin.pagos.edit',compact('pago','doctors','pacientes'));
+        return view('admin.pagos.edit',compact('pago'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request,  $id)
-    {
+    public function update(Request $request,  $id){
         //
-        
-        $request->validate([
-            'monto' => 'required',
-            'fecha_pago' => 'required'
-        ]);
         $pago = Pago::find($id);
-        $pago -> monto = $request->monto;
-        $pago -> fecha_pago = $request->fecha_pago;
-        $pago -> descripcion = $request->descripcion;
-        $pago -> paciente_id = $request->paciente_id;
-        $pago -> doctor_id = $request->doctor_id;
+        $pago -> estado = 'Pagado';
         $pago->save();
 
         return redirect()->route('admin.pagos.index')
-        ->with('mensaje','Se actualizó el pago correctamente')
+        ->with('mensaje','Se validó el pago correctamente')
         ->with('icono','success')
-        ->with('titulo','Actualización Exitosa');
+        ->with('titulo','Validación Exitosa');
 
     }
 

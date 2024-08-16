@@ -79,9 +79,9 @@ class RoleSeeder extends Seeder
         
 
          //Permisos para cita
-         Permission::create(['name'=>'admin.eventos.store'])->syncRoles([$usuario]);
-         Permission::create(['name'=>'admin.reservas'])->syncRoles([$admin,$usuario]);
-         Permission::create(['name'=>'admin.reservas.destroy'])->syncRoles([$admin,$usuario,$doctor]);
+         Permission::create(['name'=>'admin.eventos.store'])->syncRoles([$paciente]);
+         Permission::create(['name'=>'admin.reservas'])->syncRoles([$admin,$paciente]);
+         Permission::create(['name'=>'admin.reservas.destroy'])->syncRoles([$admin,$paciente,$doctor]);
          Permission::create(['name'=>'admin.doctor.cita'])->syncRoles([$doctor]);
          Permission::create(['name'=>'admin.doctor.editarCita'])->syncRoles([$doctor]);
 

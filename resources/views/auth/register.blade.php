@@ -146,6 +146,38 @@
                     </div>
 
                     <div class="row mb-3">
+                        <label for="apellidos" class="col-md-4 col-form-label text-md-end">Apellidos</label>
+
+                        <div class="col-md-6">
+                            <input id="apellidos" type="text"
+                                class="form-control @error('apellidos') is-invalid @enderror" name="apellidos"
+                                value="{{ old('apellidos') }}" required autocomplete="apellidos" autofocus>
+
+                            @error('apellidos')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-form-label text-md-end">DNI</label>
+
+                        <div class="col-md-6">
+                            <input id="dni" type="text"
+                                class="form-control @error('dni') is-invalid @enderror" name="dni"
+                                value="{{ old('dni') }}" autofocus>
+
+                            @error('dni')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
                         <label for="email" class="col-md-4 col-form-label text-md-end">Correo</label>
 
                         <div class="col-md-6">

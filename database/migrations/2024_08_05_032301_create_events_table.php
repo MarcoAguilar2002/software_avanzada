@@ -18,9 +18,9 @@ return new class extends Migration
             $table->dateTime('end');
             $table->string('color',255);
             $table->string('estado',255);
+
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
 
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');

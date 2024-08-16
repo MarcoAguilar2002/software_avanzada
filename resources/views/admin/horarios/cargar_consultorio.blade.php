@@ -1,7 +1,7 @@
 <h3>Horario de atención del consultorio de {{ $consultorio->nombre }}</h3>
 <table class="table table-striped table-hover table-sm table-bordered">
     <thead>
-        <tr>
+        <tr class="text-center">
             <th>Hora</th>
             <th>Lunes</th>
             <th>Martes</th>
@@ -20,14 +20,14 @@
             @php
                 list($hora_inicio, $hora_fin) = explode('-', $hora);
             @endphp
-            <tr>
+            <tr class="text-center">
                 <td>{{ $hora }}</td>
                 @foreach($diasSem as $dia)
                     @php
                         $nombreDoc = '';
                         foreach ($horarios as $horario) {
                             if ($horario->dia == $dia && $hora_inicio >= $horario->hora_inicio && $hora_fin <= $horario->hora_fin) {
-                                $nombreDoc = $horario->doctor->nombres . " " . $horario->doctor->apellidos;
+                                $nombreDoc = $horario->doctor->user->name;
                                 break;
                             }
                         }

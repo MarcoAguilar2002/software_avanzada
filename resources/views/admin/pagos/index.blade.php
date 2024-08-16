@@ -4,49 +4,52 @@
 
 @section('content')
 
+<style>
+    .btn-estado {
+        font-size: 12px;
+        /* Ajusta el tamaño de la fuente */
+        padding: 2px 8px;
+        /* Ajusta el padding para reducir el tamaño del botón */
+        cursor: none;
+    }
+</style>
+
     <div class="container">
         <table id="example1" class="table table-hover ">
             <thead>
                 <tr class="text-center">
                     <th scope="col">N°</th>
-                    <th scope="col">Paciente</th>
                     <th scope="col">Doctor</th>
+                    <th scope="col">Tipo</th>
                     <th scope="col">Fecha de pago</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody class="text-center">
                 <?php $contador = 1; ?>
                 @foreach ($pagos as $pago)
+                        @if(($pago->event->consultorio->especialidad == Auth::user()->secretaria->area_responsable))
                         <tr>
                             <td>{{ $contador++ }}</td>
-                            <td>{{ $pago->paciente->apellidos.' '.$pago->paciente->nombres }}</td>
-                            <td>{{ $pago->doctor->apellidos.'-'.$pago->doctor->especialidad}}</td>
+                            <td>{{ $pago->event->doctor->user->name}}</td>
+                            <td>{{ $pago->tipo}}</td>
                             <td>{{ $pago->fecha_pago}}</td>
                             <td>
-                                <a href="{{ route('admin.pagos.show', $pago->id) }}" class="btn btn-primary"
-                                    style="background-color: blue;">
-                                    <i class="bi bi-eye-fill"></i>
-                                </a>
-                                <a href="{{ route('admin.pagos.pdf', $pago->id) }}" class="btn btn-warning"
-                                    >
-                                    <i class="bi bi-printer-fill"></i>
-                                </a>
-                                <a href="{{ route('admin.pagos.edit', $pago->id) }}" class="btn btn-success"
-                                    style="background-color: green;">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <form action="{{ route('admin.pagos.destroy', $pago->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" style="background-color: red;">
-                                        <i class="bi bi-trash3-fill"></i>
+                                <div class="btn-group" role="group">
+                                    <button type="button"
+                                        class="btn btn-estado @if ($pago->estado == 'Pagado') btn-success @elseif($pago->estado == 'Pendiente') btn-primary @endif">
+                                        {{ $pago->estado }}
                                     </button>
-                                </form>
-
+                                </div>
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="{{route('admin.pagos.edit',$pago->id)}}" class="btn btn-warning @if ($pago->estado == 'Pagado') disabled @endif"><i class="fa-solid fa-clipboard-check"></i> Validar</a>
+                                </div>
                             </td>
                         </tr>
+                        @endif
                 @endforeach
             </tbody>
         </table>

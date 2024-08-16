@@ -9,11 +9,9 @@
             <thead>
                 <tr>
                     <th scope="col">N°</th>
-                    <th scope="col">Nombres</th>
-                    <th scope="col">Apellidos</th>
-                    <th scope="col">DNI</th>
-                    <th scope="col">Celular</th>
-                    <th scope="col">Dirección</th>
+                    <th scope="col">N° Seguro</th>
+                    <th scope="col">Nombres y Apellidos</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -22,11 +20,9 @@
                 @foreach ($pacientes as $paciente)
                     <tr>
                         <td>{{ $contador++ }}</td>
-                        <td>{{ $paciente->nombres }}</td>
-                        <td>{{ $paciente->apellidos }}</td>
-                        <td>{{ $paciente->dni }}</td>
-                        <td>{{ $paciente->celular }}</td>
-                        <td>{{ $paciente->direccion }}</td>
+                        <td>{{ $paciente->nro_seguro }}</td>
+                        <td>{{ $paciente->user->name }}</td>
+                        <td>{{ $paciente->user->email }}</td>
                         <td>
                             <a href="{{ route('admin.pacientes.show', $paciente->id) }}" class="btn btn-primary"
                                 style="background-color: blue;">

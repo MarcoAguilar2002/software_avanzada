@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('consultorios', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
             $table->string('ubicacion');
             $table->string('capacidad');
             $table->string('telefono')->nullable();

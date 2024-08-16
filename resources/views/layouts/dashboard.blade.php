@@ -32,6 +32,21 @@
     
     <!--CKEDITOR-->
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css" />
+    <!--Css-->
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+
+    <!--FontaWesome-->
+    <link rel="stylesheet" href="{{ url('../../plugins/fontawesome-free/css/all.css') }}">
+    <link rel="stylesheet" href="{{ url('../../plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url('../../plugins/fontawesome-free/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url('../../plugins/fontawesome-free/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url('../../plugins/fontawesome-free/css/brands.css') }}">
+    <link rel="stylesheet" href="{{ url('../../plugins/fontawesome-free/css/brands.min.css') }}">
+    <link rel="stylesheet" href="{{ url('../../plugins/fontawesome-free/css/solid.css') }}">
+    <link rel="stylesheet" href="{{ url('../../plugins/fontawesome-free/css/solid.min.css') }}">
+    <link rel="stylesheet" href="{{ url('../../plugins/fontawesome-free/css/regular.css') }}">
+    <link rel="stylesheet" href="{{ url('../../plugins/fontawesome-free/css/regular.min.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <!--Script-->
     <script src="{{ url('plugins/chart.js/Chart.min.js')  }}"></script>
@@ -80,38 +95,39 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        @can('admin.usuarios.index')
-                            <li class="nav-item menu-open">
-                                <a href="#" class="nav-link active">
-                                    <i class="bi bi-people-fill"></i>
-                                    <p>
-                                        Usuarios
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
 
-                                <ul class="nav nav-treeview" style="display: none">
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.usuarios.create') }}" class="nav-link active">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Crear Usuario</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.usuarios.index') }}" class="nav-link active">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Listado de usuarios</p>
-                                        </a>
-                                    </li>
-                                </ul>
 
-                            </li>
-                        @endcan
+                        <li class="nav-item menu-open">
+                            <a href="#" class="nav-link active">
+                                <i class="fa-solid fa-address-card"></i>
+                                <p>
+                                    Perfil
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
 
+                            <ul class="nav nav-treeview" style="display: none">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.perfil.index') }}" class="nav-link active">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Ver Perfil</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.perfil.edit',Auth::user()->id) }}" class="nav-link active">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Editar Perfil</p>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </li>
+
+                        <!--Secretarias-->
                         @can('admin.secretarias.index')
                             <li class="nav-item menu-open" >
                                 <a href="#" class="nav-link active">
-                                    <i class="bi bi-person-rolodex"></i>
+                                    <i class="fa-solid fa-user-nurse"></i>
                                     <p>
                                         Secretarias
                                         <i class="right fas fa-angle-left"></i>
@@ -135,14 +151,14 @@
 
                             </li>
                         @endcan
-                        <!--Secretarias-->
+                        
 
 
                         <!--Pacientes-->
                         @can('admin.pacientes.index')
                             <li class="nav-item menu-open">
                                 <a href="#" class="nav-link active">
-                                    <i class="bi bi-person-fill-check"></i>
+                                    <i class="fa-solid fa-hospital-user"></i>
                                     <p>
                                         Pacientes
                                         <i class="right fas fa-angle-left"></i>
@@ -172,7 +188,7 @@
                         @can('admin.consultorios.index')
                             <li class="nav-item menu-open">
                                 <a href="#" class="nav-link active">
-                                    <i class="bi bi-building"></i>
+                                    <i class="fa-solid fa-house-medical"></i>
                                     <p>
                                         Consultorios
                                         <i class="right fas fa-angle-left"></i>
@@ -202,7 +218,7 @@
                         @can('admin.doctores.index')
                             <li class="nav-item menu-open">
                                 <a href="#" class="nav-link active">
-                                    <i class="bi bi-person-fill-add"></i>
+                                    <i class="fa-solid fa-user-doctor"></i>
                                     <p>
                                         Doctores
                                         <i class="right fas fa-angle-left"></i>
@@ -260,7 +276,7 @@
                         @can('admin.reservas')
                             <li class="nav-item menu-open">
                                 <a href="#" class="nav-link active">
-                                    <i class="bi bi-ticket-detailed-fill"></i>
+                                    <i class="fa-solid fa-receipt"></i>
                                     <p>
                                         Citas
                                         <i class="right fas fa-angle-left"></i>
@@ -383,13 +399,13 @@
 
                                 <ul class="nav nav-treeview" style="display: none">
                                     <li class="nav-item">
-                                        <a href="{{ route('admin.pagos.index') }}" class="nav-link active">
+                                        <a href="{{route('admin.pagos.index')}}" class="nav-link active">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Listado de pagos</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('admin.pagos.create') }}" class="nav-link active">
+                                        <a href="" class="nav-link active">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Registrar pago</p>
                                         </a>
@@ -414,17 +430,7 @@
                             </form>
                         </li>
 
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
 
                     </ul>
                 </nav>
@@ -441,12 +447,12 @@
                         <div class="col-sm-6">
                             <h1 class="m-0">@yield('title')</h1>
                         </div>
-                        <div class="col-sm-6">
+                        <!--<div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">@yield('ruta')</li>
                             </ol>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

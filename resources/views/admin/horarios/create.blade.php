@@ -17,19 +17,16 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="input-group mb-3">
-
+                                    <div class="form-group mb-3">
+                                        <label for="">Consultorio</label>
                                         <select name="consultorio_id" id="consultorio_select" class="form-control">
+                                           <option value="">Seleciona un consultorio..</option>
                                             @foreach ($consultorios as $consultorio)
                                                 <option value="{{ $consultorio->id }}">
-                                                    {{ $consultorio->nombre . '-' . $consultorio->ubicacion }}</option>
+                                                    {{ $consultorio->especialidad . '-' . $consultorio->ubicacion }}
+                                                </option>
                                             @endforeach
                                         </select>
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="bi bi-building"></span>
-                                            </div>
-                                        </div>
 
                                         @error('consultorio_id')
                                             <small style="color:red">{{ $message }}</small>
@@ -40,20 +37,12 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="input-group mb-3">
-
-                                        <select name="doctor_id" id="" class="form-control">
-                                            @foreach ($doctores as $doctor)
-                                                <option value="{{ $doctor->id }}">
-                                                    {{ $doctor->nombres . ' ' . $doctor->apellidos . '-' . $doctor->especialidad }}
-                                                </option>
-                                            @endforeach
+                                    <div class="form-group mb-3">
+                                        <label for="">Doctor</label>
+                                        <select name="doctor_id" id="doctor_select" class="form-control">
+                                            <!-- Aquí se cargarán los doctores -->
                                         </select>
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="bi bi-person-fill-add"></span>
-                                            </div>
-                                        </div>
+                                    
 
                                         @error('doctor_id')
                                             <small style="color:red">{{ $message }}</small>
@@ -66,8 +55,8 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="input-group mb-3">
-
+                                    <div class="form-group mb-3">
+                                        <label for="">Día:</label>
                                         <select name="dia" id="" class="form-control">
                                             <option value="Lunes">Lunes</option>
                                             <option value="Martes">Martes</option>
@@ -77,12 +66,6 @@
                                             <option value="Sabado">Sabado</option>
                                         </select>
 
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="bi bi-calendar-day"></span>
-                                            </div>
-                                        </div>
-
                                         @error('doctor_id')
                                             <small style="color:red">{{ $message }}</small>
                                         @enderror
@@ -93,15 +76,10 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="input-group mb-3">
+                                    <div class="form-group mb-3">
+                                        <label for="H">Hora de Entrada:</label>
                                         <input type="time" class="form-control" name="hora_inicio"
                                             value="{{ old('hora_inicio') }}" placeholder="hora_inicio">
-
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="bi bi-alarm"></span>
-                                            </div>
-                                        </div>
                                         @error('hora_inicio')
                                             <small style="color:red">{{ $message }}</small>
                                         @enderror
@@ -111,43 +89,38 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="input-group mb-3">
+                                    <div class="form-group mb-3">
+                                        <label for="">Hora de Salida:</label>
                                         <input type="time" class="form-control" name="hora_fin"
                                             value="{{ old('hora_fin') }}" placeholder="hora_fin">
-
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="bi bi-alarm"></span>
-                                            </div>
-                                        </div>
                                         @error('hora_fin')
                                             <small style="color:red">{{ $message }}</small>
                                         @enderror
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                    <a href="{{ route('admin.horarios.index') }}" class="btn btn-secondary ">Cancelar</a>
-                                    <button type="submit" class="btn btn-primary">Registrar</button>
-
+                            
+                            <div class="row text-center">
+                                <a href="{{ route('admin.horarios.index') }}" class="btn btn-secondary ">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Registrar</button>
                             </div>
                         </form>
                     </div>
                     <script>
-                        $('#consultorio_select').on('change',function(){
+                        $('#consultorio_select').on('change', function() {
                             var consultorio_id = $('#consultorio_select').val();
-                            if(consultorio_id){
+                            if (consultorio_id) {
                                 $.ajax({
-                                    url:  "{{ url('/admin/horarios/consultorios') }}" + '/' + consultorio_id,
-                                    type:'GET',
-                                    success:function (data){
+                                    url: "{{ url('/admin/horarios/consultorios') }}" + '/' + consultorio_id,
+                                    type: 'GET',
+                                    success: function(data) {
                                         $('#consultorio_info').html(data);
-                                    },error: function(){
+                                    },
+                                    error: function() {
                                         alert('Error al obtener los datos del consultorio');
                                     }
                                 });
-                            }else{
+                            } else {
                                 $('#consultorio_info').html('');
                             }
                         });
@@ -161,7 +134,30 @@
             </div>
         </div>
     </div>
+    <script>
+        $('#consultorio_select').on('change', function() {
+            var consultorio_id = $(this).val();
+            if (consultorio_id) {
+                $.ajax({
+                    url: "{{ url('/admin/horarios/doctores') }}" + '/' + consultorio_id,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#doctor_select').empty(); // Limpiar las opciones existentes
+                        $.each(data, function(index, doctor) {
+                            $('#doctor_select').append('<option value="' + doctor.id + '">' +
+                                doctor.user.name + '</option>');
+                        });
+                    },
+                    error: function() {
+                        alert('Error al obtener los doctores');
+                    }
+                });
+            } else {
+                $('#doctor_select').empty();
+            }
+        });
+    </script>
 
-    
+
 
 @endsection

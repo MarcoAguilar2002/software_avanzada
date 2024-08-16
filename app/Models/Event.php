@@ -9,11 +9,16 @@ use App\Models\User;
 use App\Models\Consultorio;
 use App\Models\Horario;
 
+
 class Event extends Model
 {
     use HasFactory;
-    public function user(){
-        return $this->belongsTo(User::class);
+    protected $fillable = [
+        'title', 'start', 'end', 'color', 'estado', 'user_id', 'doctor_id', 'consultorio_id'
+    ];
+    
+    public function paciente(){
+        return $this->belongsTo(paciente::class);
     }
 
     public function doctor(){
@@ -24,7 +29,7 @@ class Event extends Model
         return $this->belongsTo(Consultorio::class);
     }
 
-    public function event(){
-        return $this->hasOne(Doctor::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

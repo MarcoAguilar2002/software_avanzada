@@ -1,0 +1,128 @@
+
+/*Perfil*/
+.profile-img img{
+    width: 150px;
+    height: 150px;
+    border-radius: 60%;
+}
+
+.personal-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .personal-info li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .personal-info .title {
+    flex: 1;
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  .personal-info .text {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .personal-info .text a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .personal-info .text a:hover {
+    text-decoration: underline;
+  }
+
+.card .container .row .personal-info-column {
+    border-left: 2px dashed #ccc;
+    padding-left: 20px;
+}
+
+/* Opcional: Para ajustar la alineación del contenido si es necesario */
+.card .container .row {
+    align-items: flex-start;
+}
+
+
+/* Resume Box
+---------------------*/
+.resume-box {
+    background: #ffffff;
+    box-shadow: 0 0 1.25rem rgba(31, 45, 61, 0.08);
+    border-radius: 10px;
+  }
+  .resume-box ul {
+    margin: 0;
+    padding: 30px 20px;
+    list-style: none;
+  }
+  .resume-box li {
+    position: relative;
+    padding: 0 20px 0 60px;
+    margin: 0 0 30px;
+  }
+
+  .resume-box h3{
+    font-weight: bold;
+    padding: 15px 10px 0px 10px;
+  }
+
+  .resume-box li:last-child {
+    margin-bottom: 0;
+  }
+  .resume-box li:after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    border-left: 1px dashed #0e2238;
+    bottom: 0;
+  }
+  .resume-box .icon {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    color: #0e2238;
+    line-height: 40px;
+    background: #ffffff;
+    text-align: center;
+    z-index: 1;
+    border: 1px dashed;
+    border-radius: 50%;
+    font-size: 20px;
+  }
+  .resume-box .time {
+    background: #0e2238;
+    color: #ffffff;
+    font-size: 10px;
+    padding: 2px 10px;
+    display: inline-block;
+    margin-bottom: 12px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .resume-box h5 {
+    font-weight: 700;
+    color: #0e2238;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .resume-box p {
+    margin: 0;
+  }
+  
+  .resume-box li:after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: 20px;
+      border-left: 1px dashed #0e2238;
+      bottom: 0;
+  }

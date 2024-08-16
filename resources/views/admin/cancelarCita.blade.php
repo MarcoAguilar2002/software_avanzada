@@ -42,10 +42,10 @@
                                                 style="display:inline;">
                                                 @csrf
                                                 @method('PUT')
-                                                <button type="submit" class="btn btn-danger"
-                                                    style="background-color: green;"
+                                                <button type="submit" class="btn btn-success"
+                                                   
                                                     @if ($evento->estado == 'Finalizada' || $evento->estado == 'Cancelada' ) disabled @endif>
-                                                    <i class="bi bi-x-circle"></i>
+                                                    <i class="bi bi-check-square"></i>
                                                 </button>
                                             </form>
                                             

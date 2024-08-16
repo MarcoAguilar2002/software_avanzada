@@ -17,7 +17,9 @@ return new class extends Migration
             $table->decimal('monto',10,2);
             $table->date('fecha_pago');
             $table->string('descripcion');
-            
+            $table->string('tipo');
+            $table->string('comprobante');
+            $table->string('estado');
             $table->unsignedBigInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
 

@@ -9,12 +9,9 @@
             <thead>
                 <tr>
                     <th scope="col">N°</th>
-                    <th scope="col">Nombres</th>
-                    <th scope="col">Apellidos</th>
-                    <th scope="col">DNI</th>
-                    <th scope="col">Celular</th>
-                    <th scope="col">Fecha de nacimiento</th>
-                    <th scope="col">Dirección</th>
+                    <th scope="col">Área</th>
+                    <th scope="col">Nombres y Apellidos</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -23,12 +20,9 @@
                 @foreach ($secretarias as $secretaria)
                     <tr>
                         <td>{{ $contador++ }}</td>
-                        <td>{{ $secretaria->nombres }}</td>
-                        <td>{{ $secretaria->apellidos }}</td>
-                        <td>{{ $secretaria->dni }}</td>
-                        <td>{{ $secretaria->celular }}</td>
-                        <td>{{ $secretaria->fecha_nacimiento }}</td>
-                        <td>{{ $secretaria->direccion }}</td>
+                        <td>{{ $secretaria->area_responsable }}</td>
+                        <td>{{ $secretaria->user->name }}</td>
+                        <td>{{ $secretaria->user->email }}</td>
                         <td>
                             <a href="{{ route('admin.secretarias.show', $secretaria->id) }}" class="btn btn-primary"
                                 style="background-color: blue;">

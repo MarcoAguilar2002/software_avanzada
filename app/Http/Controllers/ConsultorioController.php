@@ -33,9 +33,9 @@ class ConsultorioController extends Controller
     {
         //
         $request->validate([
-            'nombre' => 'required',
             'ubicacion' => 'required',
             'capacidad' => 'required',
+            'telefono' => 'required',
             'especialidad' => 'required',
             'estado' => 'required',
         ]);
@@ -74,9 +74,9 @@ class ConsultorioController extends Controller
     public function update(Request $request,$id){
         //
         $request->validate([
-            'nombre' => 'required',
             'ubicacion' => 'required',
             'capacidad' => 'required',
+            'telefono' => 'required',
             'especialidad' => 'required',
             'estado' => 'required',
         ]);

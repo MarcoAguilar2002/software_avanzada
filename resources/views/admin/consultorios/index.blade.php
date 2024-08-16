@@ -9,7 +9,6 @@
             <thead>
                 <tr>
                     <th scope="col">N°</th>
-                    <th scope="col">Consultorio</th>
                     <th scope="col">Ubicacion</th>
                     <th scope="col">Especialidad</th>
                     <th scope="col">Estado</th>
@@ -21,7 +20,6 @@
                 @foreach ($consultorios as $consultorio)
                     <tr>
                         <td>{{ $contador++ }}</td>
-                        <td>{{ $consultorio->nombre }}</td>
                         <td>{{ $consultorio->ubicacion }}</td>
                         <td>{{ $consultorio->especialidad }}</td>
                         <td>{{ $consultorio->estado }}</td>

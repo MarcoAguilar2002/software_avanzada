@@ -7,58 +7,65 @@ use App\Models\Horario;
 use App\Models\Doctor;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class WebController extends Controller
 {
     //
      public function index(){
         
+        $doctores = Doctor::all();
         $consultorios = Consultorio::all();
-        
-        return view('index',compact('consultorios'));
+        return view('index',compact('consultorios','doctores'));
      }
-
-     public function getDoctoresPorEspecialidad(Request $request){
-        $especialidad = $request->input('especialidad');
-        $doctores = Doctor::where('especialidad', $especialidad)->get();
-
-        return response()->json($doctores);
-    }
-
-    public function getHorarios(Request $request){
-        $doctor_id = $request->query('doctor_id');
-        $fecha = $request->query('fecha');
-        $dias_espanol = [
-            'Sunday' => 'Domingo',
-            'Monday' => 'Lunes',
-            'Tuesday' => 'Martes',
-            'Wednesday' => 'Miercoles',
-            'Thursday' => 'Jueves',
-            'Friday' => 'Viernes',
-            'Saturday' => 'Sabado'
-        ];
-        $dia_ingles = date('l', strtotime($fecha));
-        $dia = $dias_espanol[$dia_ingles];
-
-        // Asegúrate de que la consulta esté correcta según tu esquema de base de datos
-        $horarios = Horario::where('doctor_id', $doctor_id)
-                        ->where('dia', $dia)
-                        ->get(['hora_inicio', 'hora_fin']);
-                        
-        return response()->json($horarios);
-    }
-
-
-
-
-
-     public function cargar_consultorio($id){
-        $consultorio = Consultorio::find($id);
-        try{
-            $horarios = Horario::with('doctor','consultorio')->where('consultorio_id',$id)->get();
-            return view('admin.horarios.cargar_consultorio',compact('horarios','consultorio'));
-        }catch(\Exception $exception){
-            return response()->json(['mensaje'=>'Error']);
+    
+     public function cargarDoctoresPorConsultorio($consultorio_id) {
+        try {
+            // Obtener el consultorio y su especialidad
+            $consultorio = Consultorio::find($consultorio_id);
+            $especialidad = $consultorio->especialidad;
+    
+            // Filtrar doctores por la especialidad del consultorio
+            $doctores = Doctor::with('user')->where('especialidad', $especialidad)->get();
+    
+            return response()->json($doctores);
+        } catch (\Exception $exception) {
+            return response()->json(['mensaje' => 'Error al cargar los doctores'], 500);
         }
-     }
+    }
+
+    public function getHorarios($consultorio_id, $doctor_id, $fecha){
+        Carbon::setLocale('es');
+        $diaSemana = Carbon::parse($fecha)->isoFormat('dddd'); // Ejemplo: 'lunes', 'martes', etc.
+    
+        $horarios = Horario::where('consultorio_id', $consultorio_id)
+                        ->where('doctor_id', $doctor_id)
+                        ->where('dia', $diaSemana)
+                        ->get();
+    
+        $horariosParticionados = [];
+    
+        foreach ($horarios as $horario) {
+            $horaInicio = Carbon::parse($horario->hora_inicio);
+            $horaFin = Carbon::parse($horario->hora_fin);
+    
+            while ($horaInicio->lt($horaFin)) {
+                $horariosParticionados[] = [
+                    'hora' => $horaInicio->format('H:i'),
+                ];
+                $horaInicio->addMinutes(20); // Incremento de 20 minutos
+            }
+    
+            // Añadir la hora final para asegurar que se incluya el último intervalo
+            if ($horaInicio->eq($horaFin)) {
+                $horariosParticionados[] = [
+                    'hora' => $horaInicio->format('H:i'),
+                ];
+            }
+        }
+        return response()->json($horariosParticionados);
+    }
+    
+
+    
 }

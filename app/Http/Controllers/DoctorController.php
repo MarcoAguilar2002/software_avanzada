@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -48,50 +49,67 @@ class DoctorController extends Controller
         ->with('titulo','Cita Finalizada');
     }
 
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        
         $request -> validate([
             'nombres' => 'required',
             'apellidos' => 'required',
-            'codigo_colegiado' => 'required|unique:doctors',
-            'celular' => 'required', 
-            'especialidad' => 'required',
+            'dni' => 'required|unique:profiles',
+            'celular' => 'required',
+            'fecha_nacimiento' => 'required',
+            'direccion' => 'required',
+            'region' => 'required',
+            'provincia' => 'required',
+            'distrito' => 'required',
+            'codigo_colegiado' => 'required',
+            'anos_experiencia' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|confirmed'
         ]);
 
         $usuario = new User();
-        $usuario->name = $request->nombres;
+        $usuario->name = $request->nombres." ".$request->apellidos;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request->password);
         $usuario->save();
 
         $doctor = new Doctor();
         $doctor->user_id = $usuario->id;
-        $doctor->nombres = $request->nombres;
-        $doctor->apellidos = $request->apellidos;
-        $doctor->celular = $request->celular;
         $doctor->codigo_colegiado = $request->codigo_colegiado;
         $doctor->especialidad = $request->especialidad;
+        $doctor->anos_experiencia = $request->anos_experiencia;
         $doctor->save();
 
-        $usuario->assignRole('doctor');
+        $profile = new Profile();
+        $profile->user_id = $usuario->id;
+        $profile->nombres = $request->nombres;
+        $profile->apellidos = $request->apellidos;
+        $profile->dni = $request->dni;
+        $profile->celular = $request->celular;
+        $profile->fecha_nacimiento = $request->fecha_nacimiento;
+        $profile->genero = $request->genero;
+        $profile->estado_civil = $request->estado_civil;
+        $profile->direccion = $request->direccion;
+        $profile->region = $request->region;
+        $profile->provincia = $request->provincia;
+        $profile->distrito = $request->distrito;
+        $profile->save();
 
+        $usuario->assignRole('doctor');
         return redirect()->route('admin.doctores.index')
         ->with('mensaje','Se registró al doctor correctamente')
         ->with('icono','success')
-        ->with('titulo','Registro Exitoso');
+        ->with('titulo','Registro Exitoso'); 
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
-    {
+    public function show($id){
         //
         $doctor = Doctor::with('user')->findOrFail($id);
-        return view('admin.doctores.show',compact('doctor'));
+        $profile = $doctor->user->profile;
+        return view('admin.doctores.show',compact('doctor','profile'));
     }
 
     /**
@@ -101,7 +119,8 @@ class DoctorController extends Controller
     {
         //
         $doctor = Doctor::with('user')->findOrFail($id);
-        return view('admin.doctores.edit',compact('doctor'));
+        $profile = $doctor->user->profile;
+        return view('admin.doctores.edit',compact('doctor','profile'));
     }
 
     /**
@@ -110,27 +129,62 @@ class DoctorController extends Controller
     public function update(Request $request,$id)
     {
         //
-        $doctor = Doctor::find($id);
+        $doctor = Doctor::with('user')->findOrFail($id);
+        $profile = $doctor->user->profile;
 
         $request -> validate([
             'nombres' => 'required',
             'apellidos' => 'required',
-            'codigo_colegiado' => 'required|unique:doctors,codigo_colegiado,'.$doctor->id,
-            'celular' => 'required', 
-            'especialidad' => 'required',
-            'email' => 'required|unique:users,email,'.$doctor->user->id,
-            'password' => 'confirmed'
+            'dni' => 'required|unique:profiles,dni,'.$profile->id,
+            'celular' => 'required',
+            'fecha_nacimiento' => 'required',
+            'direccion' => 'required',
+            'region' => 'required',
+            'provincia' => 'required',
+            'distrito' => 'required',
+            'codigo_colegiado' => 'required',
+            'anos_experiencia' => 'required',
         ]);
 
-        $doctor->nombres = $request->nombres;
-        $doctor->apellidos = $request->apellidos;
-        $doctor->celular = $request->celular;
+        $user = $doctor->user;
+        $user->name = $request->nombres." ".$request->apellidos;
+        $user->save();
+
         $doctor->codigo_colegiado = $request->codigo_colegiado;
         $doctor->especialidad = $request->especialidad;
+        $doctor->anos_experiencia = $request->anos_experiencia;
         $doctor->save();
 
+        $profile->nombres = $request->nombres;
+        $profile->apellidos = $request->apellidos;
+        $profile->dni = $request->dni;
+        $profile->celular = $request->celular;
+        $profile->fecha_nacimiento = $request->fecha_nacimiento;
+        $profile->genero = $request->genero;
+        $profile->estado_civil = $request->estado_civil;
+        $profile->direccion = $request->direccion;
+        $profile->region = $request->region;
+        $profile->provincia = $request->provincia;
+        $profile->distrito = $request->distrito;
+        $profile->save();
+
+        return redirect()->route('admin.doctores.index')
+        ->with('mensaje','Se acutalizó al doctor correctamente')
+        ->with('icono','success')
+        ->with('titulo','Edición Exitosa');
+    }
+
+    public function updateUsuario(Request $request, $id){
+        //
+
+        $doctor = Doctor::with('user')->findOrFail($id);
+        $request -> validate([
+            'email' => 'required|unique:users,email,'.$doctor->user->id,
+            'password' => 'confirmed'
+            
+        ]);
+        
         $usuario = User::find($doctor->user->id);
-        $usuario->name = $request->nombres;
         $usuario->email = $request->email;
         if($request ->filled('password')){
             $usuario->password = Hash::make($request->password);

@@ -8,6 +8,7 @@ use App\Models\Consultorio;
 use App\Models\Doctor;
 use App\Models\Horario;
 use App\Models\Event;
+use App\Models\Pago;
 use Illuminate\Http\Request;
 
 
@@ -34,9 +35,11 @@ class AdminController extends Controller
     }
 
     public function ver_reservas(){
-        $eventos = Event::all();
-        return view('admin.verReservas',compact("eventos"));
+        $eventos = Event::with(['doctor', 'user', 'consultorio'])->get();
+        $pagos = Pago::with('event')->get();
+        return view('admin.verReservas', compact('eventos','pagos'));
     }
+
 
     public function destroy($id){
         $cita = Event::find($id);

@@ -1,37 +1,151 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Detalles de la secretaria')
-
 @section('content')
-<div class="d-flex justify-content-center align-items-center p-5 mt-5">
-    <div class="col-md-5">
-        <div class="card card-outline card-primary">
-            <div class="card-header">
-                <h3 class="card-title">Datos Registrados</h3>
-            </div>
-            <div class="card-body">
-                <!-- Contenido de la tarjeta -->
-                <h5 style="font-weight: bold">Nombres:</h5>
-                <p>{{$secretaria->nombres}}</p>
-                <h5 style="font-weight: bold">Apellidos:</h5>
-                <p>{{$secretaria->apellidos}}</p>
-                <h5 style="font-weight: bold">Email:</h5>
-                <p>{{$secretaria->email}}</p>
-                <h5 style="font-weight: bold">DNI:</h5>
-                <p>{{$secretaria->dni}}</p>
-                <h5 style="font-weight: bold">Celular:</h5>
-                <p>{{$secretaria->celular}}</p>
-                <h5 style="font-weight: bold">Fecha de nacimiento:</h5>
-                <p>{{$secretaria->fecha_nacimiento}}</p>
-                <h5 style="font-weight: bold">Dirección:</h5>
-                <p>{{$secretaria->direccion}}</p>
-                
-                <div class="text-center">
-                    <button class="btn btn-secondary" onclick="window.history.back();">Volver</button>
+    <div class="page-wrapper">
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-7 col-6">
+                    <h4 class="page-title">Detalles de la secretaria</h4>
                 </div>
-                
             </div>
+
+            <div class="col-md-12">
+                <div class="card card-outline card-primary">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Datos
+                                    Registrados</a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="activity">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>Información Personal</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="nombres">Nombres</label>
+                                            <p>{{ $profile->nombres }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="Apellidos">Apellidos</label>
+                                            <p>{{ $profile->apellidos }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="dni">DNI</label>
+                                            <p>{{ $profile->dni }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="dni">Celular</label>
+                                            <p>{{ $profile->celular }}</p>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                                            <p>{{ $profile->fecha_nacimiento }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="genero">Estado Civil</label>
+                                            <p>{{ $profile->estado_civil }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="genero">Género</label>
+                                            <p>{{ $profile->genero }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="genero">Área de Trabajo</label>
+                                            <p>{{ $secretaria->area_responsable }}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>Información de Contacto</h5>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="direccion">Dirección:</label>
+                                            <p>{{ $profile->direccion }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="region">Región</label>
+                                            <p>{{ $profile->region }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="provincia">Provincia</label>
+                                            <p>{{ $profile->provincia }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="distrito">Distrito</label>
+                                            <p>{{ $profile->distrito }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>Información de la cuenta</h5>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="direccion">Correo:</label>
+                                            <p>{{ $secretaria->user->email }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row text-center">
+                                    <div class="col-md-12">
+                                        <a href="" class="btn btn-secondary">Volver</a>
+                                       
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
+
     </div>
-</div>
 @endsection

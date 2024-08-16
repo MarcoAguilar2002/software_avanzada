@@ -15,31 +15,31 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-3">
-                                <div class="input-group mb-3">
-                                    <input type="text" name="nombre" class="form-control" placeholder="Consultorio"
-                                        value="{{ old('nombre') }}">
-
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-user"></span>
-                                        </div>
+                                <div class="form-group mb-3">
+                                    <div class="form-group">
+                                        <label for="especialidad">Especialidad</label>
+                                        <select name="especialidad" id="genero" class="form-control">
+                                            <option value="Medicina General">Medicina General</option>
+                                            <option value="Pediatría">Pediatría</option>
+                                            <option value="Ginecología">Ginecología</option>
+                                            <option value="Dermatología">Dermatología</option>
+                                            <option value="Cardiología">Cardiología</option>
+                                            <option value="Oftalmología">Oftalmología</option>
+                                            <option value="Odontología">Odontología</option>
+                                            <option value="Fisioterapia">Fisioterapia </option>
+                                            <option value="Nutrición">Nutrición</option>
+                                            <option value="Psicología">Psicología</option>
+                                        </select>
                                     </div>
-                                    @error('nombre')
-                                        <small style="color:red">{{ $message }}</small>
-                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-3">
-                                <div class="input-group mb-3">
+                                <div class="form-group mb-3">
+                                    <label for="">Ubicación</label>
                                     <input type="text" name="ubicacion" class="form-control" placeholder="Ubicación"
                                         value="{{ old('ubicacion') }}">
 
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-user"></span>
-                                        </div>
-                                    </div>
                                     @error('ubicacion')
                                         <small style="color:red">{{ $message }}</small>
                                     @enderror
@@ -47,69 +47,40 @@
                             </div>
 
                             <div class="col-md-3">
-                                <div class="input-group mb-3">
+                                <div class="form-group mb-3">
+                                    <label for="Capacidad">Capacidad</label>
                                     <input type="text" name="capacidad" class="form-control" placeholder="Capacidad"
                                         value="{{ old('capacidad') }}">
-
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-user"></span>
-                                        </div>
-                                    </div>
                                     @error('capacidad')
                                         <small style="color:red">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
-                                <div class="input-group mb-3">
-                                    <input type="text" name="telefono" class="form-control" placeholder="Celular"
-                                        value="{{ old('telefono') }}">
-
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-user"></span>
-                                        </div>
-                                    </div>
-                                    @error('telefono')
-                                        <small style="color:red">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                            </div>
+                            
 
 
                         </div>
 
                         <div class="row">
                             <div class="col-md-3">
-                                <div class="input-group mb-3">
-                                    <input type="text" name="especialidad" class="form-control"
-                                        placeholder="Especialidad" value="{{ old('especialidad') }}">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-user"></span>
-                                            </div>
-                                        </div>
-
-                                    @error('especialidad')
+                                <div class="form-group mb-3">
+                                    <label for="">Teléfono</label>
+                                    <input type="text" name="telefono" class="form-control" placeholder="Teléfono"
+                                        value="{{ old('telefono') }}">
+                                    @error('telefono')
                                         <small style="color:red">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-3">
-                                <div class="input-group mb-3">
-
+                                <div class="form-group mb-3">
+                                    <label for="Estado">Estado</label>
                                     <select name="estado" id="" class="form-control">
                                         <option value="Activo">Activo</option>
                                         <option value="Inactivo">Inactivo</option>
                                     </select>
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="bi bi-gender-ambiguous"></span>
-                                        </div>
-                                    </div>
 
                                     @error('genero')
                                         <small style="color:red">{{ $message }}</small>
@@ -118,9 +89,11 @@
                             </div>
                         </div>
 
-                        <div class="row item-aling-center justify-content">
-                            <a href="{{ route('admin.consultorios.index') }}" class="btn btn-secondary ">Cancelar</a>
-                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <a href="" class="btn btn-secondary">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Registrar</button>
+                            </div>
                         </div>
                     </form>
                 </div>

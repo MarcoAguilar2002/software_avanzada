@@ -16,10 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
         
-            $table->string('nombre_certificado'); // Nombre del certificado o título
-            $table->string('institucion'); // Institución que emitió el certificado
-            $table->date('fecha_obtencion'); // Fecha en la que se obtuvo el certificado
-            $table->string('archivo_certificado')->nullable(); // Ruta al archivo del certificado (si se guarda un archivo digital)
+            $table->string('nombre_certificado'); 
+            $table->string('institucion');
+            $table->date('fecha_obtencion');
+            $table->string('archivo_certificado')->nullable(); 
         
             $table->timestamps();
         });

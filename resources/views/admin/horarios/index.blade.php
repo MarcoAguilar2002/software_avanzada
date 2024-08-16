@@ -12,8 +12,6 @@
                     <th scope="col">Día</th>
                     <th scope="col">Doctor</th>
                     <th scope="col">Consultorio</th>
-                    <th scope="col">Hora de inicio</th>
-                    <th scope="col">Hora de salida</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -23,10 +21,8 @@
                     <tr>
                         <td>{{ $contador++ }}</td>
                         <td>{{ $horario->dia }}</td>
-                        <td>{{ $horario->doctor->nombres . ' ' . $horario->doctor->apellidos }}</td>
-                        <td>{{ $horario->consultorio->nombre . '-' . $horario->consultorio->ubicacion }}</td>
-                        <td>{{ $horario->hora_inicio }}</td>
-                        <td>{{ $horario->hora_fin }}</td>
+                        <td>{{ $horario->doctor->user->name}}</td>
+                        <td>{{ $horario->consultorio->especialidad . '-' . $horario->consultorio->ubicacion }}</td>
 
                         <td>
                             <a href="{{ route('admin.horarios.show', $horario->id) }}" class="btn btn-primary"
@@ -116,9 +112,10 @@
                         <div class="d-flex align-items-center">
                             <label for="consultorio_select" class="font-weight-bold mr-2 mb-0">Consultorios:</label>
                             <select name="consultorio_id" id="consultorio_select" class="form-control">
+                                <option value="">Escoger Consultorio..</option>
                                 @foreach ($consultorios as $consultorio)
                                     <option value="{{ $consultorio->id }}">
-                                        {{ $consultorio->nombre . '-' . $consultorio->ubicacion }}
+                                        {{ $consultorio->especialidad . '-' . $consultorio->ubicacion }}
                                     </option>
                                 @endforeach
                             </select>

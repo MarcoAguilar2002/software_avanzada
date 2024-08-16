@@ -15,32 +15,13 @@
                         @csrf
                         @method('PUT')
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="input-group mb-3">
-                                    <input type="text" name="nombre" class="form-control" placeholder="Consultorio"
-                                        value="{{ $consultorio->nombre }}">
-
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-user"></span>
-                                        </div>
-                                    </div>
-                                    @error('nombre')
-                                        <small style="color:red">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                            </div>
 
                             <div class="col-md-3">
-                                <div class="input-group mb-3">
+                                <div class="form-group mb-3">
+                                    <label for="">Ubicación</label>
                                     <input type="text" name="ubicacion" class="form-control" placeholder="Ubicación"
                                         value="{{ $consultorio->ubicacion }}">
-
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-user"></span>
-                                        </div>
-                                    </div>
+                                    
                                     @error('ubicacion')
                                         <small style="color:red">{{ $message }}</small>
                                     @enderror
@@ -48,15 +29,12 @@
                             </div>
 
                             <div class="col-md-3">
-                                <div class="input-group mb-3">
+                                <div class="form-group mb-3">
+                                    <label for="">Capacidad</label>
                                     <input type="text" name="capacidad" class="form-control" placeholder="Capacidad"
                                         value="{{ $consultorio->capacidad }}">
 
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-user"></span>
-                                        </div>
-                                    </div>
+                                    
                                     @error('capacidad')
                                         <small style="color:red">{{ $message }}</small>
                                     @enderror
@@ -64,15 +42,12 @@
                             </div>
 
                             <div class="col-md-3">
-                                <div class="input-group mb-3">
+                                <div class="form-group mb-3">
+                                    <label for="T">Teléfono</label>
                                     <input type="text" name="telefono" class="form-control" placeholder="Celular"
                                         value="{{ $consultorio->telefono }}">
 
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-user"></span>
-                                        </div>
-                                    </div>
+                                    
                                     @error('telefono')
                                         <small style="color:red">{{ $message }}</small>
                                     @enderror
@@ -84,14 +59,20 @@
 
                         <div class="row">
                             <div class="col-md-3">
-                                <div class="input-group mb-3">
-                                    <input type="text" name="especialidad" class="form-control"
-                                        placeholder="Especialidad" value="{{ $consultorio->especialidad}}">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-user"></span>
-                                            </div>
-                                        </div>
+                                <div class="form-group mb-3">
+                                    <label for="Especialidad">Especialidad</label>
+                                    <select name="especialidad" id="especialidad" class="form-control">
+                                        <option value="Medicina General" @selected($consultorio->estado == 'Medicina General')>Medicina General</option>
+                                        <option value="Pediatría" @selected($consultorio->estado == 'Pediatría')>Pediatría</option>
+                                        <option value="Ginecología" @selected($consultorio->estado == 'Ginecología')>Ginecología</option>
+                                        <option value="Dermatología" @selected($consultorio->estado == 'Dermatología')>Dermatología</option>
+                                        <option value="Cardiología" @selected($consultorio->estado == 'Cardiología')>Cardiología</option>
+                                        <option value="Oftalmología" @selected($consultorio->estado == 'Oftalmología')>Oftalmología</option>
+                                        <option value="Odontología" @selected($consultorio->estado == 'Odontología')>Odontología</option>
+                                        <option value="Fisioterapia" @selected($consultorio->estado == 'Fisioterapia')>Fisioterapia </option>
+                                        <option value="Nutrición" @selected($consultorio->estado == 'Nutrición')>Nutrición</option>
+                                        <option value="Psicología" @selected($consultorio->estado == 'Psicología')>Psicología</option>
+                                    </select>
 
                                     @error('especialidad')
                                         <small style="color:red">{{ $message }}</small>
@@ -100,17 +81,13 @@
                             </div>
 
                             <div class="col-md-3">
-                                <div class="input-group mb-3">
-
+                                <div class="form-group mb-3">
+                                    <label for="">Estado</label>
                                     <select name="estado" id="" class="form-control">
                                         <option value="Activo" @selected($consultorio->estado == 'Activo')>Activo</option>
                                         <option value="Inactivo" @selected($consultorio->estado == 'Inactivo')>Inactivo</option>
                                     </select>
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="bi bi-gender-ambiguous"></span>
-                                        </div>
-                                    </div>
+                                    
 
                                     @error('genero')
                                         <small style="color:red">{{ $message }}</small>
@@ -119,9 +96,11 @@
                             </div>
                         </div>
 
-                        <div class="row item-aling-center justify-content">
-                            <a href="{{ route('admin.consultorios.index') }}" class="btn btn-secondary ">Cancelar</a>
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <a href="{{ route('admin.consultorios.index') }}" class="btn btn-secondary ">Cancelar</a>
                             <button type="submit" class="btn btn-primary">Actualizar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
