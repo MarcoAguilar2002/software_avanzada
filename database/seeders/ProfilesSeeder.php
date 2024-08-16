@@ -23,9 +23,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Av. Pino 1',
             'genero' => 'Femenino',
             'estado_civil' => 'Soltera',
-            'region' => 'Lima',
-            'provincia' => 'Lima',
-            'distrito' => 'Lima',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -39,9 +39,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Av. Los Olivos 123',
             'genero' => 'Masculino',
             'estado_civil' => 'Casado',
-            'region' => 'Arequipa',
-            'provincia' => 'Arequipa',
-            'distrito' => 'Arequipa',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -55,9 +55,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Calle Las Flores 456',
             'genero' => 'Femenino',
             'estado_civil' => 'Soltera',
-            'region' => 'Lima',
-            'provincia' => 'Lima',
-            'distrito' => 'San Isidro',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -71,9 +71,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Av. San Juan 789',
             'genero' => 'Masculino',
             'estado_civil' => 'Casado',
-            'region' => 'Piura',
-            'provincia' => 'Piura',
-            'distrito' => 'Piura',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -87,9 +87,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Calle Los Naranjos 123',
             'genero' => 'Femenino',
             'estado_civil' => 'Casada',
-            'region' => 'Cusco',
-            'provincia' => 'Cusco',
-            'distrito' => 'Cusco',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -103,9 +103,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Calle Santa Rosa 321',
             'genero' => 'Femenino',
             'estado_civil' => 'Soltera',
-            'region' => 'Lima',
-            'provincia' => 'Lima',
-            'distrito' => 'Miraflores',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -119,9 +119,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Av. Las Américas 456',
             'genero' => 'Femenino',
             'estado_civil' => 'Casada',
-            'region' => 'Arequipa',
-            'provincia' => 'Arequipa',
-            'distrito' => 'Yanahuara',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -135,9 +135,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Jr. San Juan 456',
             'genero' => 'Femenino',
             'estado_civil' => 'Divorciada',
-            'region' => 'Lima',
-            'provincia' => 'Lima',
-            'distrito' => 'San Borja',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -151,9 +151,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Calle Los Cedros 654',
             'genero' => 'Femenino',
             'estado_civil' => 'Soltera',
-            'region' => 'Lima',
-            'provincia' => 'Lima',
-            'distrito' => 'San Miguel',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -167,9 +167,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Jr. Los Naranjos 987',
             'genero' => 'Femenino',
             'estado_civil' => 'Casada',
-            'region' => 'Cusco',
-            'provincia' => 'Cusco',
-            'distrito' => 'Wanchaq',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -183,9 +183,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Av. Los Olivos 123',
             'genero' => 'Masculino',
             'estado_civil' => 'Casado',
-            'region' => 'Lima',
-            'provincia' => 'Lima',
-            'distrito' => 'San Miguel',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -199,9 +199,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Jr. Los Cedros 321',
             'genero' => 'Femenino',
             'estado_civil' => 'Soltera',
-            'region' => 'Arequipa',
-            'provincia' => 'Arequipa',
-            'distrito' => 'Cayma',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -215,9 +215,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Jr. Santa Rosa 456',
             'genero' => 'Masculino',
             'estado_civil' => 'Casado',
-            'region' => 'Lima',
-            'provincia' => 'Lima',
-            'distrito' => 'San Isidro',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -231,9 +231,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Av. La Marina 789',
             'genero' => 'Femenino',
             'estado_civil' => 'Soltera',
-            'region' => 'Piura',
-            'provincia' => 'Piura',
-            'distrito' => 'Piura',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -247,9 +247,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Calle La Libertad 456',
             'genero' => 'Masculino',
             'estado_civil' => 'Soltero',
-            'region' => 'Cusco',
-            'provincia' => 'Cusco',
-            'distrito' => 'San Sebastián',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -263,9 +263,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Jr. Santa Rosa 456',
             'genero' => 'Femenino',
             'estado_civil' => 'Casada',
-            'region' => 'Lima',
-            'provincia' => 'Lima',
-            'distrito' => 'Miraflores',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -279,9 +279,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Av. Los Olivos 123',
             'genero' => 'Masculino',
             'estado_civil' => 'Soltero',
-            'region' => 'Arequipa',
-            'provincia' => 'Arequipa',
-            'distrito' => 'Sachaca',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -295,9 +295,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Jr. Santa Rosa 456',
             'genero' => 'Femenino',
             'estado_civil' => 'Casada',
-            'region' => 'Lima',
-            'provincia' => 'Lima',
-            'distrito' => 'Miraflores',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -311,9 +311,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Calle La Libertad 789',
             'genero' => 'Masculino',
             'estado_civil' => 'Soltero',
-            'region' => 'Cusco',
-            'provincia' => 'Cusco',
-            'distrito' => 'San Sebastián',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
 
@@ -327,9 +327,9 @@ class ProfilesSeeder extends Seeder
             'direccion' => 'Av. El Sol 321',
             'genero' => 'Femenino',
             'estado_civil' => 'Divorciada',
-            'region' => 'Piura',
-            'provincia' => 'Piura',
-            'distrito' => 'El Tallán',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
             'pais' => 'Peru',
         ]);
     }
