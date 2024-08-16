@@ -19,9 +19,12 @@
                 <?php $contador = 1; ?>
                 @foreach ($secretarias as $secretaria)
                     <tr>
+
                         <td>{{ $contador++ }}</td>
                         <td>{{ $secretaria->area_responsable }}</td>
-                        <td>{{ $secretaria->user->name }}</td>
+                        <td>
+                            {{ __($secretaria->user->profile->nombres . ' ' . $secretaria->user->profile->apellidos) }}
+                        </td>
                         <td>{{ $secretaria->user->email }}</td>
                         <td>
                             <a href="{{ route('admin.secretarias.show', $secretaria->id) }}" class="btn btn-primary"
