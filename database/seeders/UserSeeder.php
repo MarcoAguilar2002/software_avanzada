@@ -2,14 +2,22 @@
 
 namespace Database\Seeders;
 
+use FontLib\Table\Type\name;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+
 use Illuminate\Support\Facades\Hash;
+
+use Faker\Guesser\Name as GuesserName;
+
+use Faker\Factory as Faker;
+
 
 class UserSeeder extends Seeder
 {
     public function run()
     {
+
         /* User::factory()->count(30)->create(); */
 
         User::create([

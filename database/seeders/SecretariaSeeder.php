@@ -5,11 +5,16 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Secretaria;
+use App\Models\User;
+use App\Models\Consultorio;
+use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
 
 class SecretariaSeeder extends Seeder
 {
     public function run()
     {
+
         /* Secretaria::factory()->count(20)->create()->each(function ($user){
             $user->assignRole('secretaria');
         }); */

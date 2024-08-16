@@ -4,11 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User; 
-use App\Models\Secretaria; 
-use App\Models\Doctor; 
-use App\Models\Consultorio; 
-use App\Models\Horario; 
+use App\Models\User;
+use App\Models\Secretaria;
+use App\Models\Doctor;
+use App\Models\Consultorio;
+use App\Models\Horario;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -18,26 +18,17 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void{
-        
-        $this->call([RoleSeeder::class,]);
-        
-        User::create([
-            'name'=>'admin1',
-            'email'=>'admin1@gmail.com',
-            'password'=>Hash::make('admin1123')
-        ])->assignRole('admin');
-        
+    public function run(): void
+    {
 
-        
-
+        $this->call([
+            RoleSeeder::class,
+            ConsultorioSeeder::class,
+            UserSeeder::class,
+            DoctorSeeder::class,
+            SecretariaSeeder::class,
+        ]);
         /*
-        User::create([
-            'name'=>'doctor1',
-            'email'=>'doctor1@gmail.com',
-            'password'=>Hash::make('doctor1123')
-        ])->assignRole('doctor');
-
         User::create([
             'name'=>'secretaria1',
             'email'=>'secretaria1@gmail.com',
@@ -89,6 +80,5 @@ class DatabaseSeeder extends Seeder
         $this->call([EventSeeder::class,]);
         $this->call([HistorialSeeder::class,]);
         $this->call([PagoSeeder::class,]);*/
-            
     }
 }
