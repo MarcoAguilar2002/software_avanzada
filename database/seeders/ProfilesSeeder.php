@@ -14,6 +14,22 @@ class ProfilesSeeder extends Seeder
     public function run(): void
     {
         Profile::create([
+            'user_id' => 1,  // Claudia Morales
+            'nombres' => 'Jorgue',
+            'apellidos' => 'Zavaleta',
+            'dni' => '67942506',
+            'celular' => '965280564',
+            'fecha_nacimiento' => '1985-01-01',
+            'direccion' => 'Av. Pino 60',
+            'genero' => 'Masculito',
+            'estado_civil' => 'Soltero',
+            'region' => 'La Libertad',
+            'provincia' => 'Pacasmayo',
+            'distrito' => 'Guadalupe',
+            'pais' => 'Peru',
+        ]);
+
+        Profile::create([
             'user_id' => 2,  // Claudia Morales
             'nombres' => 'Claudia',
             'apellidos' => 'Morales',

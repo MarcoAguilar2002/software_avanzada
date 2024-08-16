@@ -21,6 +21,12 @@ class UserSeeder extends Seeder
         /* User::factory()->count(30)->create(); */
 
         User::create([
+            "name" => "Jorgue Zavaleta",
+            "email" => "jorgue456@gmail.com", // admin
+            "password" => "admin1234",
+        ])->assignRole('admin'); //////
+
+        User::create([
             "name" => "Claudia Morales",
             "email" => "claudia_morales_doctor@gmail.com", // Cambiado
             "password" => "claudia123",
