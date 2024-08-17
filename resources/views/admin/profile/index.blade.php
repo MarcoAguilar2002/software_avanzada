@@ -86,10 +86,12 @@
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Información
                                     Básica</a></li>
-
+                            
+                            @if (Auth::user()->roles->pluck('name')->first() == 'doctor')
                             <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Educación
                                     Formativa</a>
                             </li>
+                            @endif
                         </ul>
                     </div>
                     <div class="card-body">
@@ -113,38 +115,17 @@
 
                                 <p><strong><i class="fa-solid fa-street-view fa-beat"></i></i> Distrito:</strong></p>
                                 <p>{{ $perfil->distrito }}</p>
-
                             </div>
 
                             <div class="tab-pane" id="timeline">
-                                <div class="resume-box">
-                                    <h3 class="card-title pb-3">Educación Formativa</h3>
-                                    <ul>
-                                        <li>
-
-                                        </li>
-                                        <li>
-                                            <div class="icon">
-                                                <i class="fa-solid fa-user-graduate fa-beat-fade"></i>
-                                            </div>
-                                            <span class="time">2019 - Present</span>
-                                            <h5>Art Director - Facebook Inc</h5>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        </li>
-                                    </ul>
-                                </div>
-
+                                @include('admin.certificado.index')
                             </div>
-
                         </div>
 
                     </div>
                 </div>
 
             </div>
-
         </div>
-
     </div>
 @endsection

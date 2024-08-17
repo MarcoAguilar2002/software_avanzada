@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('admin.pagos.store') }}" method="POST">
+                    <form action="{{ route('admin.pagos.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group mb-3">
                             <label for="paciente_id">Paciente</label>

@@ -23,7 +23,7 @@
                         @if ($pago->tipo != 'Efectivo')
                             <div class="row text-center">
                                 <div class="col-md-12">
-                                    <img src="{{ $pago->comprobante }}" alt="Foto del comprobante"
+                                    <img src="/storage/{{ $pago->comprobante }}" alt="Foto del comprobante"
                                         style="height: auto; width:200px ;">
                                 </div>
                             </div>

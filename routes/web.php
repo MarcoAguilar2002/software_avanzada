@@ -7,6 +7,8 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ConsultorioController;
+use App\Http\Controllers\CertificadoController;
+use App\Http\Controllers\ChatBotController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\WebController;
@@ -126,10 +128,16 @@ Route::get('/admin/pagos', [PagoController::class, 'index'])->name('admin.pagos.
 Route::get('/admin/pagos/{id}', [PagoController::class, 'edit'])->name('admin.pagos.edit')->middleware('auth');
 Route::put('/admin/pagos/{id}', [PagoController::class, 'update'])->name('admin.pagos.update')->middleware('auth');
 
-
 //Eventos
 Route::post('/admin/eventos/create',[EventController::class, 'store'])->name('admin.eventos.store')->middleware('auth'); 
 Route::delete('/admin/eventos/destroy/{id}', [EventController::class, 'destroy'])->name('admin.eventos.destroy')->middleware('auth');
 
+//Certificado
+Route::post('/admin/certificado/create',[CertificadoController::class, 'store'])->name('admin.certificados.store')->middleware('auth',); 
+Route::put('/admin/certificado/edit/{id}',[CertificadoController::class, 'update'])->name('admin.certificados.update')->middleware('auth'); 
 
 
+//Consulta CHAT BOT
+
+Route::get('/admin/consultar', [ChatBotController::class, 'index'])->name('admin.consulta.index')->middleware('auth','can:admin.consulta.index');
+Route::post('/ask', [ChatBotController::class, 'rpta'])->name('ask');

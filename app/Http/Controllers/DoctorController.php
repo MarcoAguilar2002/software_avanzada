@@ -6,6 +6,7 @@ use App\Models\Doctor;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Profile;
+use App\Models\Certificado;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -80,6 +81,14 @@ class DoctorController extends Controller
         $doctor->anos_experiencia = $request->anos_experiencia;
         $doctor->save();
 
+        $certificado = new Certificado();
+        $certificado->doctor_id = $doctor->id;
+        $certificado->nombre_certificado = $request->nombre_certificado;
+        $certificado->institucion = $request->institucion;
+        $certificado->fecha_obtencion = $request->fecha_obtencion;
+        $certificado->archivo_certificado = $request->file('archivo_certificado')->store('images');
+        $certificado->save();
+
         $profile = new Profile();
         $profile->user_id = $usuario->id;
         $profile->nombres = $request->nombres;
@@ -118,9 +127,11 @@ class DoctorController extends Controller
     public function edit($id)
     {
         //
+        
         $doctor = Doctor::with('user')->findOrFail($id);
+        $certificados = $doctor->certificados;
         $profile = $doctor->user->profile;
-        return view('admin.doctores.edit',compact('doctor','profile'));
+        return view('admin.doctores.edit',compact('doctor','profile','certificados'));
     }
 
     /**

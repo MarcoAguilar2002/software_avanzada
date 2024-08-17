@@ -104,11 +104,11 @@
                 <p style="color: white;font-weight: bold;margin-top: -15px;padding-bottom: 10px">Costo: S/ 20</p>
             </div>
 
-            <form action="{{ route('admin.pagos.store')}}" method="POST">
+            <form action="{{ route('admin.pagos.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="file-upload">
                     <label for="customFile" class="file-label">Seleccionar archivo</label>
-                    <input type="file" name="comprobante" id="customFile" accept="image/*">
+                    <input type="file" name="comprobante" id="customFile" accept="image/*" >
                     @error('comprobante')
                                 <small style="color:red">{{ $message }}</small>
                     @enderror

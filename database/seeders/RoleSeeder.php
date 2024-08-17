@@ -23,6 +23,7 @@ class RoleSeeder extends Seeder
 
         
         Permission::create(['name'=>'admin.index']);
+
          //Permisos para admin usuarios
          Permission::create(['name'=>'admin.usuarios.index'])->syncRoles([$admin]);
          Permission::create(['name'=>'admin.usuarios.create'])->syncRoles([$admin]);
@@ -110,9 +111,13 @@ class RoleSeeder extends Seeder
          Permission::create(['name'=>'admin.pagos.update'])->syncRoles([$admin,$secretaria]);
          Permission::create(['name'=>'admin.pagos.destroy'])->syncRoles([$admin,$secretaria]);
 
+        //permisos consulta
+        Permission::create(['name'=>'admin.consulta.index'])->syncRoles([$paciente]);
+        Permission::create(['name'=>'send'])->syncRoles([$paciente]);
+
 
          //ajax
          Permission::create(['name'=>'admin.horarios.cargar'])->syncRoles([$admin,$secretaria]);
-    
+        
         }
 }

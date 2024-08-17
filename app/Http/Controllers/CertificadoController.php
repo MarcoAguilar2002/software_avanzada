@@ -29,6 +29,18 @@ class CertificadoController extends Controller
     public function store(Request $request)
     {
         //
+        $certificado = new Certificado();
+        $certificado->doctor_id = $request->doctor_id;
+        $certificado->nombre_certificado = $request->nombre_certificado;
+        $certificado->institucion = $request->institucion;
+        $certificado->fecha_obtencion = $request->fecha_obtencion;
+        $certificado->archivo_certificado = $request->file('archivo_certificado')->store('images');
+        $certificado->save();
+
+        return redirect()->route('admin.doctores.index')
+        ->with('mensaje','Se acutalizó al doctor correctamente')
+        ->with('icono','success')
+        ->with('titulo','Edición Exitosa');
     }
 
     /**
@@ -50,9 +62,21 @@ class CertificadoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Certificado $certificado)
+    public function update(Request $request,$id)
     {
-        //
+
+
+        $certificado = Certificado::find($id);
+        $certificado->nombre_certificado = $request->nombre_certificado;
+        $certificado->institucion = $request->institucion;
+        $certificado->fecha_obtencion = $request->fecha_obtencion;
+        $certificado->archivo_certificado = $request->file('archivo_certificado')->store('images');
+        $certificado->save();
+
+        return redirect()->route('admin.doctores.index')
+        ->with('mensaje','Se acutalizó al doctor correctamente')
+        ->with('icono','success')
+        ->with('titulo','Edición Exitosa');
     }
 
     /**

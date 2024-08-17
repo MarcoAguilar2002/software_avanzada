@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Certificado extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre_certificado','institucion','fecha_obtencion','archivo_certificado','doctor_id'];
+    protected $fillable = ['doctor_id','nombre_certificado','institucion','fecha_obtencion','archivo_certificado'];
 
     public function doctor(){
         return $this->belongsTo(Doctor::class);

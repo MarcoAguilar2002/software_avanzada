@@ -96,13 +96,6 @@
 
                         <div class="row text-center">
                             <div class="col-md-12">
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        ¿Olvidaste tu contraseña?
-                                    </a>
-                                @endif
-                            </div>
-                            <div class="col-md-12">
                                 <p>¿No tienes una cuenta? <a href="{{ route('register') }}" class="btn btn-link">Registrate aquí</a></p>
                             </div>
                         </div>

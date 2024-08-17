@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('admin.doctores.store') }}" method="POST">
+                    <form action="{{ route('admin.doctores.store') }}" method="POST"  enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
@@ -238,6 +238,71 @@
                             </div>
 
                         </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Grado de Instruccion</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="provincia">Grado Obtenido</label>
+                                    <input type="text" class="form-control" name="nombre_certificado"
+                                        value="{{ old('nombre_certificado') }}" placeholder="Grado Obtenido">
+                                    @error('nombre_certificado')
+                                        <small style="color:red">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="provincia">Institución</label>
+                                    <input type="text" class="form-control" name="institucion"
+                                        value="{{ old('institucion') }}" placeholder="Institución">
+                                    @error('nombre_certificado')
+                                        <small style="color:red">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="provincia">Fecha de Obtención</label>
+                                    <input type="date" class="form-control" name="fecha_obtencion"
+                                        value="{{ old('fecha_obtencion') }}">
+                                    @error('fecha_obtencion')
+                                        <small style="color:red">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                
+                                <div class="form-group">
+                                    <input type="file" name="archivo_certificado" class="custom-file-input" id="customFile"
+                                        accept="image/*">
+                                    <label for="customFile" class="custom-file-label">Seleccionar foto del certificado</label>
+                                </div>
+                            </div>
+
+                            <script>
+                                document.querySelector('.custom-file-input').addEventListener('change', function(e) {
+                                    var fileName = e.target.files[0].name;
+                                    var label = e.target.nextElementSibling;
+                                    label.textContent = fileName;
+                                });
+                            
+                                // Cambiar el texto del botón al cargar la página
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    var label = document.querySelector('.custom-file-label');
+                                    label.textContent = 'Seleccionar foto del certificado';
+                                });
+                            </script>
+
+                        </div>
+
+
                         <div class="row text-center">
                             <div class="col-md-12">
                                 <a href="" class="btn btn-secondary">Cancelar</a>

@@ -36,13 +36,12 @@ class PagoController extends Controller
     public function store(Request $request)
     {
         //
-        
         $request->validate([
             'comprobante' => 'required'
         ]);
 
         $pago = new Pago();
-        $pago -> comprobante = $request->comprobante;
+        $pago -> comprobante =$request->file('comprobante')->store('images');
         $pago -> monto = $request->monto;
         $pago -> fecha_pago = $request->fecha_pago;
         $pago -> descripcion = $request->descripcion;

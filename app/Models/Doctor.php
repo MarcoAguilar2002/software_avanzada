@@ -8,6 +8,7 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Models\Consultorio;
 use App\Models\Horario;
 use App\Models\User;
+use App\Models\Certificado;
 use App\Models\Event;
 
 class Doctor extends Model
@@ -41,8 +42,8 @@ class Doctor extends Model
         return $this->hasMany(Pago::class);
     }
 
-    public function certificadosEstudio() {
-        return $this->hasMany(CertificadoEstudio::class);
+    public function certificados() {
+        return $this->hasMany(Certificado::class);
     }
     
 }

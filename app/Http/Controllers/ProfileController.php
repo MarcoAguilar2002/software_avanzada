@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use App\Models\User;
+use App\Models\Certificado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth; 
@@ -11,11 +12,17 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller{
     public function index(){
         $user = Auth::user();
+
         if (is_null($user->profile)) {
             return redirect()->route('admin.perfil.edit')
             ->with('mensaje', 'Debe completar su perfil antes de continuar.')
             ->with('icono', 'warning')
             ->with('titulo', 'Perfil Incompleto');
+        }
+        if($user->doctor){
+            $certificados = $user->doctor->certificados;
+            $perfil = $user->profile;
+            return view('admin.profile.index', compact('perfil','certificados'));
         }
 
         $perfil = $user->profile;
