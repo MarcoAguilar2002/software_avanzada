@@ -27,8 +27,11 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             DoctorSeeder::class,
             SecretariaSeeder::class,
+<<<<<<< HEAD
             PacienteSeeder::class,
             ProfileSeeder::class,
+=======
+>>>>>>> bda0805694c6fb2705483a685dcaf605245d8953
         ]);
         /*
         User::create([

@@ -14,6 +14,7 @@ class SecretariaSeeder extends Seeder
 {
     public function run()
     {
+<<<<<<< HEAD
 
         /* Secretaria::factory()->count(20)->create()->each(function ($user){
             $user->assignRole('secretaria');
@@ -43,5 +44,47 @@ class SecretariaSeeder extends Seeder
             'user_id' => '11',
             'area_responsable' => 'Oftalmologia',
         ]);
+=======
+        $users = [
+            [
+                'name' => 'secretaria1',
+                'email' => 'secretaria1@gmail.com',
+                'password' => Hash::make('secretaria1')
+            ],
+            [
+                'name' => 'secretaria2',
+                'email' => 'secretaria2@gmail.com',
+                'password' => Hash::make('secretaria2')
+            ],
+            [
+                'name' => 'secretaria3',
+                'email' => 'secretaria3@gmail.com',
+                'password' => Hash::make('secretaria3')
+            ],
+        ];
+
+        $especialidades = Consultorio::get()->pluck('especialidad')->toArray();
+
+        $faker = Faker::create();
+
+        foreach ($users as $user) {
+            $newUser = new User();
+            $newUser->fill($user);
+            $newUser->assignRole('doctor');
+            $newUser->save();
+
+            // *DOCTOR
+            $newUser->secretaria()->create([
+                'area_responsable' => $faker->randomElement($especialidades),
+            ]);
+
+            // *PROFILE
+            $newUser->profile()->create([
+                'nombres' => $faker->firstName(),
+                'apellidos' => $faker->lastName(),
+                'dni' => $faker->unique()->randomNumber(8, true),
+            ]);
+        }
+>>>>>>> bda0805694c6fb2705483a685dcaf605245d8953
     }
 }

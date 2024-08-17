@@ -32,6 +32,10 @@ return new class extends Migration
         Schema::table('doctors', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
         });
+<<<<<<< HEAD
+=======
+
+>>>>>>> bda0805694c6fb2705483a685dcaf605245d8953
         Schema::dropIfExists('doctors');
     }
 };

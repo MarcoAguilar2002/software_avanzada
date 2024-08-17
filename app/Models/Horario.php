@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Doctor;
 use App\Models\Consultorio;
-/* use App\Models\Horario; */
 
 class Horario extends Model
 {

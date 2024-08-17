@@ -16,9 +16,12 @@ return new class extends Migration
             $table->string('dia');
             $table->time('hora_inicio');
             $table->time('hora_fin');
-            
-            $table->foreignId('doctor_id')->constrained('doctors')->onDelete('cascade');
-            $table->foreignId('consultorio_id')->constrained('consultorios')->onDelete('cascade');
+            $table->foreignId('doctor_id')
+                ->constrained('doctors')
+                ->cascadeOnDelete();
+            $table->foreignId('consultorio_id')
+                ->constrained('consultorios')
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }
